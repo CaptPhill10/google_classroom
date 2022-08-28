@@ -1,0 +1,6 @@
+allure-pytest
+iniconfig
+pytest
+requests
+selenium
+undetected-chromedriver
