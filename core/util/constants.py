@@ -1,16 +1,14 @@
 class Constants:
 
     # Valid login data
-    # VALID_LOGIN = "captphill10@gmail.com"
-    # VALID_PASSWORD = "TequilaXO18+"
-    VALID_LOGIN = "sherlocktrue@gmail.com"
-    VALID_PASSWORD = "EPMlogin2022"
+    VALID_LOGIN = "<your email>@gmail.com"
+    VALID_PASSWORD = "<password>"
 
     # Invalid login data
     INVALID_LOGIN = ""
     INVALID_PASSWORD = "Mr1234567?"
 
-    CLASS_NAME = "iTechArt online class"
+    CLASS_NAME = "Math online class"
 
     SECTION = ""
 
