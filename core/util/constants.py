@@ -1,10 +1,11 @@
 class Constants:
 
     # Valid login data
-    # VALID_LOGIN = "captphill10@gmail.com"
-    # VALID_PASSWORD = "TequilaXO18+"
-    VALID_LOGIN = "sherlocktrue@gmail.com"
-    VALID_PASSWORD = "EPMlogin2022"
+    VALID_LOGIN = "captphill10@gmail.com"
+    VALID_PASSWORD = "TequilaXO18+"
+
+    # VALID_LOGIN = "chrislusttrue@gmail.com"
+    # VALID_PASSWORD = "5050038Nik"
 
     # Invalid login data
     INVALID_LOGIN = ""

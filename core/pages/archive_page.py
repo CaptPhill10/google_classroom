@@ -23,7 +23,6 @@ class ArchivePage(BasePage):
         self.archive_page_button.click()
         self.course_details_button.click()
         self.delete_button.click()
-        # breakpoint()
         self.dialog_delete_button.click()
 
     @property

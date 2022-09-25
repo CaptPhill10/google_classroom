@@ -81,6 +81,7 @@ class BaseElement(object):
                 EC.element_to_be_clickable(mark=self.locator)
             )
             web_element.clear()
+            print(text)
             web_element.send_keys(text)
         else:
             return None

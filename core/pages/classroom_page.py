@@ -20,7 +20,7 @@ class ClassroomPage(BasePage):
         pass
 
     def archive_course(self):
-        self.classroom_menu.click()
+        self.main_menu_button.click()
         self.classes_button.click()
         self.course_details_button.click()
         self.archive_course_button.click()
@@ -54,10 +54,6 @@ class ClassroomPage(BasePage):
     @property
     def classes_button(self):
         return BaseElement(driver=self.driver, locator=self.locators.CLASSES_BUTTON)
-
-    @property
-    def classroom_menu(self):
-        return BaseElement(driver=self.driver, locator=self.locators.CLASSROOM_MENU)
 
     @property
     def classroom_page_header(self):
@@ -96,13 +92,17 @@ class ClassroomPage(BasePage):
         return BaseElement(driver=self.driver, locator=self.locators.DIALOG_WINDOW)
 
     @property
+    def main_menu_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.MAIN_MENU_BUTTON)
+
+    @property
+    def room_field(self):
+        return BaseElement(driver=self.driver, locator=self.locators.ROOM_FIELD)
+
+    @property
     def section_field(self):
         return BaseElement(driver=self.driver, locator=self.locators.SECTION_FIELD)
 
     @property
     def subject_field(self):
         return BaseElement(driver=self.driver, locator=self.locators.SUBJECT_FIELD)
-
-    @property
-    def room_field(self):
-        return BaseElement(driver=self.driver, locator=self.locators.ROOM_FIELD)

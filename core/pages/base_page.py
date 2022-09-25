@@ -5,6 +5,9 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from core.base_element import BaseElement
+from core.locators.base_locators import BaseLocators
+
 
 class BasePage:
 
@@ -12,6 +15,7 @@ class BasePage:
         self.driver = driver
         self.test_config = test_config
         self.main_page = "https://accounts.google.com/"
+        self.locators = BaseLocators(config=self.test_config)
 
     def open_main_page(self):
         self.driver.get(self.main_page)
@@ -42,3 +46,11 @@ class BasePage:
         except TimeoutException:
             print("Error: cannot find the elements: ", sys.exc_info()[0])
             return None
+
+    # @property
+    # def main_menu_button(self):
+    #     return BaseElement(driver=self.driver, locator=self.locators.MAIN_MENU_BUTTON)
+    #
+    # @property
+    # def classes_button(self):
+    #     return BaseElement(driver=self.driver, locator=self.locators.CLASSES_BUTTON)

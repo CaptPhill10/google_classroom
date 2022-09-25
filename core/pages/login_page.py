@@ -20,9 +20,9 @@ class LoginPage(BasePage):
         pass
 
     def do_login(self, email, password):
-        self.language_selector.click()
-        self.select_english.click()
-        time.sleep(1)
+        # self.language_selector.click()
+        # self.select_english.click()
+        # time.sleep(1)
         self.email_field.input_text(email)
         self.next_button.click()
         time.sleep(1)
