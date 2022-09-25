@@ -11,7 +11,7 @@ class Constants:
     INVALID_LOGIN = ""
     INVALID_PASSWORD = "Mr1234567?"
 
-    CLASS_NAME = "iTechArt online class"
+    CLASS_NAME = "Math online class"
 
     SECTION = ""
 
