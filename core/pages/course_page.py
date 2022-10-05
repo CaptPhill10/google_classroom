@@ -18,12 +18,36 @@ class CoursePage(BasePage):
         pass
 
     @property
+    def alertdialog(self):
+        return BaseElement(driver=self.driver, locator=self.locators.ALERTDIALOG)
+
+    @property
+    def announcement_popup(self):
+        return BaseElement(driver=self.driver, locator=self.locators.ANNOUNCEMENT_POPUP)
+
+    @property
     def classwork_button(self):
         return BaseElement(driver=self.driver, locator=self.locators.CLASSWORK_BUTTON)
 
     @property
+    def close_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.CLOSE_BUTTON)
+
+    @property
+    def course_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.COURSE_BUTTON)
+
+    @property
     def got_it_button(self):
         return BaseElement(driver=self.driver, locator=self.locators.GOT_IT)
+
+    @property
+    def next_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.NEXT_BUTTON)
+
+    @property
+    def people_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.PEOPLE_BUTTON)
 
     @property
     def stream_settings_button(self):

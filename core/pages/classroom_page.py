@@ -96,6 +96,10 @@ class ClassroomPage(BasePage):
         return BaseElement(driver=self.driver, locator=self.locators.MAIN_MENU_BUTTON)
 
     @property
+    def open_course(self):
+        return BaseElement(driver=self.driver, locator=self.locators.OPEN_COURSE)
+
+    @property
     def room_field(self):
         return BaseElement(driver=self.driver, locator=self.locators.ROOM_FIELD)
 

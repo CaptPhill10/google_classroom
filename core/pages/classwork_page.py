@@ -30,6 +30,10 @@ class ClassworkPage(BasePage):
         return BaseElement(driver=self.driver, locator=self.locators.ADD_BUTTON)
 
     @property
+    def add_link_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.ADD_LINK_BUTTON)
+
+    @property
     def add_question_button(self):
         return BaseElement(driver=self.driver, locator=self.locators.ADD_QUESTION_BUTTON)
 
@@ -38,8 +42,16 @@ class ClassworkPage(BasePage):
         return BaseElement(driver=self.driver, locator=self.locators.ADD_VIDEO_BUTTON)
 
     @property
-    def alterdialog(self):
-        return BaseElement(driver=self.driver, locator=self.locators.ALTERDIALOG)
+    def alertdialog(self):
+        return BaseElement(driver=self.driver, locator=self.locators.ALERTDIALOG)
+
+    @property
+    def alertdialog_rename_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.ALERTDIALOG_RENAME_BUTTON)
+
+    @property
+    def alertdialog_input(self):
+        return BaseElement(driver=self.driver, locator=self.locators.ALERTDIALOG_INPUT)
 
     @property
     def answer_key(self):
@@ -66,8 +78,24 @@ class ClassworkPage(BasePage):
         return BaseElement(driver=self.driver, locator=self.locators.ASSIGNMENT_BUTTON)
 
     @property
+    def assignment_edit_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.ASSIGNMENT_EDIT_BUTTON)
+
+    @property
     def assignment_instructions(self):
         return BaseElement(driver=self.driver, locator=self.locators.ASSIGNMENT_INSTRUCTIONS)
+
+    @property
+    def assignment_options_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.ASSIGNMENT_OPTIONS_BUTTON)
+
+    @property
+    def assignment_title(self):
+        return BaseElement(driver=self.driver, locator=self.locators.ASSIGNMENT_TITLE)
+
+    @property
+    def attach_link_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.ATTACH_LINK_BUTTON)
 
     @property
     def attach_video_button(self):
@@ -84,6 +112,10 @@ class ClassworkPage(BasePage):
     @property
     def create_button(self):
         return BaseElement(driver=self.driver, locator=self.locators.CREATE_BUTTON)
+
+    @property
+    def create_quiz_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.CREATE_QUIZ_BUTTON)
 
     @property
     def description(self):
@@ -108,6 +140,10 @@ class ClassworkPage(BasePage):
     @property
     def first_question_title(self):
         return BaseElement(driver=self.driver, locator=self.locators.FIRST_QUESTION_TITLE)
+
+    @property
+    def forms_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.FORMS_BUTTON)
 
     @property
     def got_it_button(self):
@@ -142,6 +178,10 @@ class ClassworkPage(BasePage):
         return BaseElement(driver=self.driver, locator=self.locators.MATERIAL_TOPIC_FIELD)
 
     @property
+    def new_topic(self):
+        return BaseElement(driver=self.driver, locator=self.locators.NEW_TOPIC)
+
+    @property
     def no_thanks_button(self):
         return BaseElement(driver=self.driver, locator=self.locators.NO_THANKS_BUTTON)
 
@@ -154,12 +194,20 @@ class ClassworkPage(BasePage):
         return BaseElement(driver=self.driver, locator=self.locators.OPEN_QUIZ)
 
     @property
+    def people_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.PEOPLE_BUTTON)
+
+    @property
     def popup(self):
         return BaseElement(driver=self.driver, locator=self.locators.POPUP)
 
     @property
     def post_button(self):
         return BaseElement(driver=self.driver, locator=self.locators.POST_BUTTON)
+
+    @property
+    def remove_attachment(self):
+        return BaseElement(driver=self.driver, locator=self.locators.REMOVE_ATTACHMENT)
 
     @property
     def question_button(self):
@@ -182,12 +230,20 @@ class ClassworkPage(BasePage):
         return BaseElement(driver=self.driver, locator=self.locators.QUIZ_TITLE)
 
     @property
+    def rename_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.RENAME_BUTTON)
+
+    @property
     def required_radio(self):
         return BaseElement(driver=self.driver, locator=self.locators.REQUIRED_RADIO)
 
     # @property
     # def next_month(self):
     #     return BaseElement(driver=self.driver, locator=self.locators.NEXT_MONTH)
+
+    @property
+    def save_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.SAVE_BUTTON)
 
     @property
     def search_button(self):
@@ -204,6 +260,10 @@ class ClassworkPage(BasePage):
     @property
     def second_configure_option(self):
         return BaseElement(driver=self.driver, locator=self.locators.SECOND_CONFIGURE_OPTION)
+
+    @property
+    def second_question_field(self):
+        return BaseElement(driver=self.driver, locator=self.locators.SECOND_QUESTION_FIELD)
 
     @property
     def second_question_title(self):
@@ -230,8 +290,16 @@ class ClassworkPage(BasePage):
         return BaseElement(driver=self.driver, locator=self.locators.SELECT_TOPIC)
 
     @property
+    def send_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.SEND_BUTTON)
+
+    @property
     def title_field(self):
         return BaseElement(driver=self.driver, locator=self.locators.TITLE_FIELD)
+
+    @property
+    def topic(self):
+        return BaseElement(driver=self.driver, locator=self.locators.TOPIC)
 
     @property
     def topic_button(self):
@@ -248,3 +316,7 @@ class ClassworkPage(BasePage):
     @property
     def topic_name_field(self):
         return BaseElement(driver=self.driver, locator=self.locators.TOPIC_NAME_FIELD)
+
+    @property
+    def topic_settings_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.TOPIC_SETTINGS_BUTTON)

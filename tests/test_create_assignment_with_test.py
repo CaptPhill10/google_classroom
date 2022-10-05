@@ -5,7 +5,6 @@ import allure
 import pytest
 from core.pages.account_page import AccountPage
 from core.pages.archive_page import ArchivePage
-from core.pages.base_page import BasePage
 from core.pages.classroom_page import ClassroomPage
 from core.pages.classwork_page import ClassworkPage
 from core.pages.course_page import CoursePage
@@ -19,10 +18,10 @@ dt_string = now.strftime("%d/%m/%Y %H:%M") + " ET"
 
 pytestmark = [
     pytest.mark.all,
-    pytest.mark.create_topic,
+    pytest.mark.assignment_with_test,
     pytest.mark.smoke,
     allure.parent_suite("All tests"),
-    allure.suite("Create Topic - " + dt_string),
+    allure.suite("Create Assignment With Test - " + dt_string),
 ]
 
 
@@ -30,8 +29,7 @@ pytestmark = [
 def login_page(driver, test_config):
 
     login = LoginPage(driver, test_config)
-    base = BasePage(driver, test_config)
-    base.open_main_page()
+    login.open_main_page()
     login.do_login(Constants.VALID_LOGIN, Constants.VALID_PASSWORD)
 
     account = AccountPage(driver, test_config)
@@ -96,8 +94,6 @@ class TestClassworkPage:
 
         yield classwork
 
-        classwork.people_button.click()
-
     @allure.title("Create topic")
     def test_create_topic(self, classwork):
         classwork.create_button.click()
@@ -105,6 +101,77 @@ class TestClassworkPage:
         classwork.topic_name_field.input_text(Constants.TOPIC_NAME)
         classwork.add_button.click()
         assert classwork.topic_name.text == Constants.TOPIC_NAME
+
+
+@allure.sub_suite("04. Assignment with test")
+class TestAssignmentWithTest:
+    @pytest.fixture(scope="class")
+    def quiz_assignment(self, driver, test_config):
+        assignment_wt = ClassworkPage(driver, test_config)
+
+        yield assignment_wt
+
+        assignment_wt.wait_for_element(element=assignment_wt.people_button, wait_time=10)
+        assignment_wt.people_button.click()
+
+    @allure.title("Create assignment with test")
+    def test_create_assignment_with_test(self, quiz_assignment, driver):
+        quiz_assignment.create_button.click()
+        quiz_assignment.quiz_assignment.click()
+        quiz_assignment.title_field.input_text("Multiplication table test")
+        # assert quiz_assignment.description.visible
+        # quiz_assignment.description.click()
+        # quiz_assignment.description.input_text("Fill the gaps in the test")
+        assert quiz_assignment.open_quiz.visible
+        quiz_assignment.open_quiz.click()
+        window_after = driver.window_handles[2]
+        driver.switch_to.window(window_after)
+        if quiz_assignment.guide.visible:
+            quiz_assignment.no_thanks_button.click()
+        if quiz_assignment.guide.visible:
+            quiz_assignment.okay_button.click()
+        quiz_assignment.quiz_title.input_text("Multiplication quiz")
+
+    @allure.title("Create first question")
+    def test_create_first_question(self, quiz_assignment):
+        quiz_assignment.first_question_title.input_text("7 x 4")
+        quiz_assignment.configure_option.click()
+        quiz_assignment.select_option.click()
+        time.sleep(1)
+        quiz_assignment.required_radio.click()
+        quiz_assignment.answer_key.click()
+        time.sleep(1)
+        quiz_assignment.add_answer_field.click()
+        quiz_assignment.input_answer.input_text("28")
+        time.sleep(1)
+        quiz_assignment.mark_as_incorrect_checkbox.click()
+        quiz_assignment.done_button.click()
+
+    @allure.title("Create second question")
+    def test_create_second_question(self, quiz_assignment, driver):
+        quiz_assignment.add_question_button.click()
+        quiz_assignment.second_question_title.input_text("3 x 8")
+        quiz_assignment.second_configure_option.click()
+        quiz_assignment.second_select_option.click()
+        time.sleep(1)
+        quiz_assignment.second_required_radio.click()
+        quiz_assignment.second_answer_key.click()
+        time.sleep(1)
+        quiz_assignment.add_answer_field.click()
+        quiz_assignment.input_answer.input_text("24")
+        time.sleep(1)
+        quiz_assignment.mark_as_incorrect_checkbox.click()
+        quiz_assignment.done_button.click()
+        previous_window = driver.window_handles[1]
+        driver.switch_to.window(previous_window)
+        quiz_assignment.topic_field.click()
+        quiz_assignment.select_topic.click()
+        quiz_assignment.due_date.click()
+        quiz_assignment.due_date_field.click()
+        quiz_assignment.assign_button.click()
+
+        assert quiz_assignment.quiz_assignment_title.visible
+        print(quiz_assignment.quiz_assignment_title.text)
 
 
 @allure.sub_suite("05. Assign Teacher")
@@ -136,13 +203,6 @@ class TestAssignStudent:
 
         yield people_page
 
-        classroom = ClassroomPage(driver, test_config)
-        classroom.main_menu_button.click()
-        classroom.classes_button.click()
-        classroom.open_course.click()
-        course = CoursePage(driver, test_config)
-        course.classwork_button.click()
-
     @allure.title("Assign Student by Email")
     def test_invite_student_email(self, people_page):
         people_page.people_email.input_text("sherlocktrue@gmail.com")
@@ -154,52 +214,32 @@ class TestAssignStudent:
         assert people_page.student_name.visible
 
 
-@allure.sub_suite("Change Topic")
-class TestChangeTopic:
-    @pytest.fixture(scope="class")
-    def classwork(self, driver, test_config):
-        classwork = ClassworkPage(driver, test_config)
-
-        yield classwork
-
-    @allure.title("Change Topic")
-    def test_change_topic_name(self, classwork):
-        classwork.topic_settings_button.click()
-        # classwork.wait_for_element_clickable(classwork.rename_button)
-        time.sleep(1)
-        classwork.rename_button.click()
-        classwork.alertdialog_input.input_text("iPhone 14 Pro Max")
-        classwork.alertdialog_rename_button.click()
-
-        assert classwork.new_topic.visible
-
-
-@allure.sub_suite("04. Archive course")
-class TestArchiveCourse:
-    @pytest.fixture(scope="class")
-    def classroom(self, driver, test_config):
-        classroom = ClassroomPage(driver, test_config)
-        classroom.main_menu_button.click()
-        classroom.classes_button.click()
-
-        yield classroom
-
-        classroom.main_menu_button.click()
-
-    @allure.title("Archive course")
-    def test_archive_course(self, classroom):
-        classroom.archive_course()
-        time.sleep(1)
-
-
-@allure.sub_suite("05. Delete course")
-class TestDeleteCourse:
-    @pytest.fixture(scope="class")
-    def archive(self, driver, test_config):
-        archive = ArchivePage(driver, test_config)
-
-        yield archive
-
-    @allure.title("Delete course")
-    def test_delete_course(self, archive):
-        archive.delete_course()
+# @allure.sub_suite("05. Archive course")
+# class TestArchiveCourse:
+#     @pytest.fixture(scope="class")
+#     def classroom(self, driver, test_config):
+#         classroom = ClassroomPage(driver, test_config)
+#         time.sleep(2)
+#         classroom.main_menu_button.click()
+#         classroom.classes_button.click()
+#
+#         yield classroom
+#
+#         classroom.main_menu_button.click()
+#
+#     @allure.title("Archive course")
+#     def test_archive_course(self, classroom):
+#         classroom.archive_course()
+#
+#
+# @allure.sub_suite("06. Delete course")
+# class TestDeleteCourse:
+#     @pytest.fixture(scope="class")
+#     def archive(self, driver, test_config):
+#         archive = ArchivePage(driver, test_config)
+#
+#         yield archive
+#
+#     @allure.title("Delete course")
+#     def test_delete_course(self, archive):
+#         archive.delete_course()

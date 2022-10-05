@@ -124,6 +124,26 @@ class BaseElement(object):
             return None
 
     @property
+    def clickable(self, wait_time=10):
+        if self.web_element is not None:
+            try:
+                WebDriverWait(self.driver, wait_time).until(
+                    EC.element_to_be_clickable(self.web_element)
+                )
+                return True
+            except TimeoutException:
+                print(
+                    f"Error: element with locator {self.locator} not clickable after 10 seconds: ",
+                    sys.exc_info()[0],
+                )
+                return False
+            except Exception as e:
+                print(f"An Exception occurred: {e}")
+                return False
+        else:
+            return False
+
+    @property
     def visible(self, wait_time=10):
         if self.web_element is not None:
             try:

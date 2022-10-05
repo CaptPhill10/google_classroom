@@ -36,6 +36,8 @@ class ClassroomLocators:
 
         self.MAIN_MENU_BUTTON = (By.XPATH, '//button[@data-tooltip-id="tt-i1"]')
 
+        self.OPEN_COURSE = (By.XPATH, '//div[@class="Tc9hUd CNpREd UvHKof"]')
+
         self.ROOM_FIELD = (By.XPATH, '//*[@id="c14"]')
 
         self.SECTION_FIELD = (By.XPATH, '//*[@id="c8"]')

@@ -37,7 +37,14 @@ class BasePage:
             print("Not visible")
             time.sleep(1)
             i += 1
-        print("Visible")
+
+    @staticmethod
+    def wait_for_element_clickable(element, wait_time=10):
+        i = 0
+        while not element.clickable and i < wait_time:
+            print("Not visible")
+            time.sleep(1)
+            i += 1
 
     def elements_list(self, locator: str):
         try:

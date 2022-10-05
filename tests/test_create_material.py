@@ -6,22 +6,22 @@ import pytest
 from core.pages.account_page import AccountPage
 from core.pages.archive_page import ArchivePage
 from core.pages.classroom_page import ClassroomPage
-from core.pages.people_page import PeoplePage
+from core.pages.classwork_page import ClassworkPage
 from core.pages.course_page import CoursePage
 from core.pages.login_page import LoginPage
+from core.pages.people_page import PeoplePage
 from core.util.constants import Constants
 
 
 now = datetime.now() - timedelta(hours=4)
 dt_string = now.strftime("%d/%m/%Y %H:%M") + " ET"
 
-
 pytestmark = [
     pytest.mark.all,
-    pytest.mark.create_course,
+    pytest.mark.create_material,
     pytest.mark.smoke,
     allure.parent_suite("All tests"),
-    allure.suite("Create Course - " + dt_string),
+    allure.suite("Create Material - " + dt_string),
 ]
 
 
@@ -50,21 +50,7 @@ class TestClassPage:
         yield classroom
 
         course = CoursePage(driver, test_config)
-
-        if course.announcement_popup.visible:
-            while course.announcement_popup.visible:
-                if course.next_button.visible:
-                    course.next_button.click()
-                else:
-                    course.got_it_button.click()
-
-
-        # course = CoursePage(driver, test_config)
-        #
-        # if not course.alertdialog.visible:
-        #     pass
-        # else:
-        #     course.close_button.click()
+        course.classwork_button.click()
 
     @allure.title("Classroom page is opened")
     def test_is_classroom_page(self, classroom):
@@ -104,15 +90,49 @@ class TestCoursePage:
     @pytest.fixture(scope="class")
     def course(self, driver, test_config):
         course = CoursePage(driver, test_config)
+        course.classwork_button.click()
 
         yield course
 
-        course.people_button.click()
 
-    @allure.title("Change stream settings")
-    def test_stream_settings(self, course):
-        course.wait_for_element(element=course.stream_settings_button, wait_time=10)
-        assert course.stream_settings_button.visible
+@allure.sub_suite("03. Classwork")
+class TestClassworkPage:
+    @pytest.fixture(scope="class")
+    def classwork(self, driver, test_config):
+        classwork = ClassworkPage(driver, test_config)
+
+        yield classwork
+
+    @allure.title("Create topic")
+    def test_create_topic(self, classwork):
+        classwork.create_button.click()
+        classwork.topic_button.click()
+        classwork.topic_name_field.input_text(Constants.TOPIC_NAME)
+        classwork.add_button.click()
+        assert classwork.topic_name.text == Constants.TOPIC_NAME
+
+
+@allure.sub_suite("04. Material")
+class TestMaterial:
+    @pytest.fixture(scope="class")
+    def material(self, driver, test_config):
+        material_form = ClassworkPage(driver, test_config)
+
+        yield material_form
+
+    @allure.title("Create material")
+    def test_create_material(self, material):
+        material.create_button.click()
+        material.material_button.click()
+        material.title_field.input_text("Multiplication table")
+        # material.description.click()
+        # material.description_text_input.input_text("Read the article about Multiplication table")
+        time.sleep(1)
+        material.material_topic_field.click()
+        material.select_topic.click()
+        material.post_button.click()
+
+        assert material.material_name.visible
 
 
 @allure.sub_suite("05. Assign Teacher")
@@ -160,6 +180,7 @@ class TestArchiveCourse:
     @pytest.fixture(scope="class")
     def classroom(self, driver, test_config):
         classroom = ClassroomPage(driver, test_config)
+        time.sleep(1)
         classroom.main_menu_button.click()
         classroom.classes_button.click()
 
@@ -183,6 +204,3 @@ class TestDeleteCourse:
     @allure.title("Delete course")
     def test_delete_course(self, archive):
         archive.delete_course()
-
-        # assert classroom.course_name.text is None
-
