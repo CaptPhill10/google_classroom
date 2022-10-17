@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import allure
 import pytest
@@ -6,22 +6,19 @@ from allure_commons.types import AttachmentType
 
 from core.pages.account_page import AccountPage
 from core.pages.classroom_page import ClassroomPage
-from core.pages.classwork_page import ClassworkPage
-from core.pages.course_page import CoursePage
 from core.pages.login_page import LoginPage
-from core.data.text_data import TextData
 from core.util.constants import Constants
 
-now = datetime.now()
-dt_string = now.strftime("%d/%m/%Y %H:%M")
+
+now = datetime.now() - timedelta(hours=4)
+dt_string = now.strftime("%d/%m/%Y %H:%M") + " ET"
 
 pytestmark = [
-    pytest.mark.order(17),
-    pytest.mark.change_topic,
-    pytest.mark.topic_flow,
+    pytest.mark.order(18),
+    pytest.mark.archive_course,
     pytest.mark.smoke,
     allure.parent_suite("All tests"),
-    allure.suite("Change Topic - " + dt_string),
+    allure.suite("Archive Course - " + dt_string),
 ]
 
 
@@ -53,15 +50,6 @@ class TestClassPage:
 
         yield classroom
 
-        classroom.course_button.click()
-
-        course = CoursePage(driver, test_config)
-
-        while course.got_it_button.visible:
-            course.got_it_button.click()
-
-        course.classwork_button.click()
-
     @allure.title("Classroom page is opened")
     def test_is_classroom_page(self, classroom):
         with allure.step("Classroom title is displayed"):
@@ -77,35 +65,22 @@ class TestClassPage:
                 assert False
 
 
-@allure.sub_suite("02. Change Topic")
-class TestChangeTopic:
+@allure.sub_suite("02. Archive course")
+class TestArchiveCourse:
     @pytest.fixture(scope="class")
-    def classwork(self, driver, test_config):
-        classwork = ClassworkPage(driver, test_config)
+    def classroom(self, driver, test_config, login_page):
+        classroom = ClassroomPage(driver, test_config)
 
-        classwork.topic_settings_button.click()
-        classwork.wait_for_element_clickable(element=classwork.rename_button)
-        classwork.rename_button.click()
-        classwork.alertdialog_input.input_text(TextData.CHANGED_TOPIC_NAME)
-        classwork.alertdialog_rename_button.click()
+        yield classroom
 
-        if not classwork.topic_name.text == \
-               TextData.CHANGED_TOPIC_NAME:
-            driver.refresh()
-
-        yield classwork
-
-    @allure.title("Changed Topic Title")
-    def test_change_topic_name(self, classwork):
-        with allure.step("Check Changed Topic Title"):
+    @allure.title("Archive course")
+    def test_archive_course(self, classroom):
+        classroom.archive_course()
+        with allure.step("Check Course archived"):
             try:
-                classwork.wait_for_element_clickable(
-                    element=classwork.topic_name
-                )
-                assert classwork.topic_name.text == \
-                       TextData.CHANGED_TOPIC_NAME
+                assert not classroom.course_button.visible
             except:
-                allure.attach(classwork.driver.get_screenshot_as_png(),
-                              name="Changed Topic Title not displayed",
+                allure.attach(classroom.driver.get_screenshot_as_png(),
+                              name="Course not archived",
                               attachment_type=AttachmentType.PNG)
                 assert False

@@ -86,13 +86,6 @@ class BaseElement(object):
         else:
             return None
 
-    # def set_value(self, text):
-    #     web_element = WebDriverWait(self.driver, 10).until(
-    #         EC.element_to_be_clickable(mark=self.locator)
-    #     )
-    #     web_element.clear()
-    #     web_element.set_value(text)
-
     @property
     def get_attribute(self):
         if self.web_element is not None:

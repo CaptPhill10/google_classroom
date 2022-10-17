@@ -11,17 +11,19 @@ from core.pages.course_page import CoursePage
 from core.pages.login_page import LoginPage
 from core.data.text_data import TextData
 from core.util.constants import Constants
+from core.pages.studentwork_page import StudentworkPage
+
 
 now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
-    pytest.mark.order(17),
-    pytest.mark.change_topic,
-    pytest.mark.topic_flow,
+    pytest.mark.order(4),
+    pytest.mark.assignment_flow,
+    pytest.mark.check_assignment_teacher,
     pytest.mark.smoke,
     allure.parent_suite("All tests"),
-    allure.suite("Change Topic - " + dt_string),
+    allure.suite("Check Assignment Teacher - " + dt_string),
 ]
 
 
@@ -60,6 +62,7 @@ class TestClassPage:
         while course.got_it_button.visible:
             course.got_it_button.click()
 
+        course.wait_for_element_clickable(element=course.classwork_button)
         course.classwork_button.click()
 
     @allure.title("Classroom page is opened")
@@ -77,35 +80,60 @@ class TestClassPage:
                 assert False
 
 
-@allure.sub_suite("02. Change Topic")
-class TestChangeTopic:
+@allure.sub_suite("02. Check in Studentwork")
+class TestTeacherCheck:
     @pytest.fixture(scope="class")
-    def classwork(self, driver, test_config):
+    def studentwork(self, driver, test_config):
+
         classwork = ClassworkPage(driver, test_config)
 
-        classwork.topic_settings_button.click()
-        classwork.wait_for_element_clickable(element=classwork.rename_button)
-        classwork.rename_button.click()
-        classwork.alertdialog_input.input_text(TextData.CHANGED_TOPIC_NAME)
-        classwork.alertdialog_rename_button.click()
-
-        if not classwork.topic_name.text == \
-               TextData.CHANGED_TOPIC_NAME:
+        if not classwork.assigned_task.visible:
             driver.refresh()
 
-        yield classwork
+        classwork.wait_for_element_clickable(element=classwork.assigned_work)
+        classwork.assigned_task.click()
 
-    @allure.title("Changed Topic Title")
-    def test_change_topic_name(self, classwork):
-        with allure.step("Check Changed Topic Title"):
+        classwork.assigned_task_view_button.click()
+
+        studentwork = StudentworkPage(driver, test_config)
+
+        studentwork.wait_for_element_clickable(
+            element=studentwork.add_grade_button
+        )
+        studentwork.add_grade_button.click()
+        studentwork.input_grade_box.input_text(TextData.GRADE)
+        studentwork.wait_for_element_clickable(
+            element=studentwork.return_button
+        )
+        studentwork.return_button.click()
+        studentwork.wait_for_element_clickable(
+            element=studentwork.alertdialog_return_button
+        )
+        studentwork.alertdialog_return_button.click()
+
+        yield studentwork
+
+    @allure.title("Student Grade Points")
+    def test_student_grade_points(self, studentwork):
+        with allure.step("Student Grade Points are added"):
             try:
-                classwork.wait_for_element_clickable(
-                    element=classwork.topic_name
-                )
-                assert classwork.topic_name.text == \
-                       TextData.CHANGED_TOPIC_NAME
+                studentwork.wait_for_element(element=studentwork.grade_points)
+                assert studentwork.grade_points.text == \
+                       "100 points out of possible 100"
             except:
-                allure.attach(classwork.driver.get_screenshot_as_png(),
-                              name="Changed Topic Title not displayed",
+                allure.attach(studentwork.driver.get_screenshot_as_png(),
+                              name="Student Grade Points not added",
+                              attachment_type=AttachmentType.PNG)
+                assert False
+
+    @allure.title("Student Graded")
+    def test_student_graded(self, studentwork):
+        with allure.step("Student Task Status"):
+            try:
+                studentwork.wait_for_element(element=studentwork.graded_label)
+                assert studentwork.graded_label.text == "Graded"
+            except:
+                allure.attach(studentwork.driver.get_screenshot_as_png(),
+                              name="Student Status not displayed",
                               attachment_type=AttachmentType.PNG)
                 assert False

@@ -17,12 +17,12 @@ now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
-    pytest.mark.order(5),
-    pytest.mark.assignment_flow,
-    pytest.mark.change_assignment,
+    pytest.mark.order(16),
+    pytest.mark.change_material,
+    pytest.mark.material_flow,
     pytest.mark.smoke,
     allure.parent_suite("All tests"),
-    allure.suite("Change Assignment - " + dt_string),
+    allure.suite("Change Material - " + dt_string),
 ]
 
 
@@ -61,7 +61,6 @@ class TestClassPage:
         while course.got_it_button.visible:
             course.got_it_button.click()
 
-        course.wait_for_element_clickable(element=course.classwork_button)
         course.classwork_button.click()
 
     @allure.title("Classroom page is opened")
@@ -79,15 +78,13 @@ class TestClassPage:
                 assert False
 
 
-@allure.sub_suite("02. Change Assignment")
+@allure.sub_suite("02. Change Quiz")
 class TestChangeTopic:
     @pytest.fixture(scope="class")
     def classwork(self, driver, test_config):
         classwork = ClassworkPage(driver, test_config)
 
-        yield classwork
-
-        classwork.assignment_settings_button.click()
+        classwork.material_settings_button.click()
         classwork.wait_for_element_clickable(element=classwork.edit_button)
 
         if not classwork.edit_button.visible:
@@ -96,6 +93,8 @@ class TestChangeTopic:
             classwork.wait_for_element_clickable(element=classwork.edit_button)
 
         classwork.edit_button.click()
+
+        yield classwork
 
     @allure.title("Classwork Page is Opened")
     def test_classwork_page_opened(self, classwork):
@@ -110,51 +109,87 @@ class TestChangeTopic:
                 assert False
 
 
-@allure.sub_suite("04. Change Assignment")
-class TestAssignmentPage:
+@allure.sub_suite("03. Change Material")
+class TestMaterialPage:
     @pytest.fixture(scope="class")
-    def assignment(self, driver, test_config):
-        assignment = ClassworkPage(driver, test_config)
+    def material(self, driver, test_config):
+        material = ClassworkPage(driver, test_config)
 
-        assignment.assignment_name.input_text(
-            TextData.CHANGED_ASSIGNMENT_NAME
-        )
-        assignment.remove_attachment.click()
-        assignment.attach_link_button.click()
-        assignment.alertdialog_input.input_text(
-            TextData.ASSIGNMENT_ATTACHMENT_2
-        )
-        assignment.add_link_button.click()
-        attribute_value = assignment.save_button.get_attribute("tabindex")
+        material.material_title.input_text(TextData.CHANGED_MATERIAL_TITLE)
+        material.remove_attachment.click()
+        material.attach_video_button.click()
+        driver.switch_to.frame("newt-iframe")
+        material.search_video_field.input_text(TextData.MATERIAL_VIDEO)
+        material.search_button.click()
+        material.add_video_button.click()
+        driver.switch_to.parent_frame()
+
+        yield material
+
+        attribute_value = material.post_button.get_attribute("tabindex")
         if attribute_value == "0":
-            assignment.save_button.click()
+            material.post_button.click()
         else:
             while attribute_value != "0":
                 print(attribute_value)
                 attribute_value = \
-                    assignment.save_button.get_attribute("tabindex")
+                    material.post_button.get_attribute("tabindex")
                 print(attribute_value)
                 if attribute_value == "0":
-                    assignment.save_button.click()
+                    material.post_button.click()
 
-        assignment.wait_for_element(element=assignment.changed_other_name)
-        if not assignment.changed_other_name == \
-               TextData.CHANGED_ASSIGNMENT_NAME:
-            driver.refresh()
-            assignment.wait_for_element_clickable(
-                element=assignment.changed_other_name
-            )
-
-        yield assignment
-
-    @allure.title("Change Assignment")
-    def test_change_assignment_topic(self, assignment):
-        with allure.step("Assignment Title changed"):
+    @allure.title("Material Name Text")
+    def test_material_name_text(self, material):
+        with allure.step("Changed Material Title in text field"):
             try:
-                assert assignment.changed_other_name.text == \
-                       TextData.CHANGED_ASSIGNMENT_NAME
+                assert material.material_title.text == \
+                       TextData.CHANGED_MATERIAL_TITLE
             except:
-                allure.attach(assignment.driver.get_screenshot_as_png(),
-                              name="Changed Assignment Title not displayed",
+                allure.attach(material.driver.get_screenshot_as_png(),
+                              name="Changed Material Title not displayed"
+                                   " in field",
+                              attachment_type=AttachmentType.PNG)
+                assert False
+
+    @allure.title("Change Material")
+    def test_add_material(self, material):
+        with allure.step("Changed Material attached"):
+            try:
+                material.wait_for_element_clickable(
+                    element=material.material_attachment
+                )
+                attachment_href = \
+                    material.material_attachment.get_attribute("href")
+                assert attachment_href == TextData.MATERIAL_VIDEO
+            except:
+                allure.attach(material.driver.get_screenshot_as_png(),
+                              name="Changed Material not attached",
+                              attachment_type=AttachmentType.PNG)
+                assert False
+
+
+@allure.sub_suite("03. Material Changed")
+class TestClassworkPage:
+    @pytest.fixture(scope="class")
+    def classwork(self, driver, test_config):
+        classwork = ClassworkPage(driver, test_config)
+
+        # if not classwork.changed_other_name.text == \
+        #        TextData.CHANGED_MATERIAL_TITLE:
+        #     driver.refresh()
+
+        time.sleep(3)
+
+        yield classwork
+
+    @allure.title("Material Changed")
+    def test_changed_material_title(self, classwork):
+        with allure.step("Material Changed. Changed Title is displayed"):
+            try:
+                assert classwork.changed_other_name.text == \
+                       TextData.CHANGED_MATERIAL_TITLE
+            except:
+                allure.attach(classwork.driver.get_screenshot_as_png(),
+                              name="Changed Material Title not displayed",
                               attachment_type=AttachmentType.PNG)
                 assert False

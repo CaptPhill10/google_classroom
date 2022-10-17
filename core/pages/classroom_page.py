@@ -25,7 +25,7 @@ class ClassroomPage(BasePage):
         self.course_details_button.click()
         self.archive_course_button.click()
         self.dialog_archive_button.click()
-        time.sleep(1)
+        time.sleep(2)
 
     def enter_class_name(self, classname):
         self.class_name_field.input_text(classname)
@@ -48,16 +48,20 @@ class ClassroomPage(BasePage):
         return BaseElement(driver=self.driver, locator=self.locators.ARCHIVE_COURSE_BUTTON)
 
     @property
+    def archive_page_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.ARCHIVE_PAGE_BUTTON)
+
+    @property
     def class_name_field(self):
         return BaseElement(driver=self.driver, locator=self.locators.CLASS_NAME_FIELD)
 
-    @property
-    def classes_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.CLASSES_BUTTON)
+    # # @property
+    # # def classes_button(self):
+    # #     return BaseElement(driver=self.driver, locator=self.locators.CLASSES_BUTTON)
 
     @property
     def classroom_page_header(self):
-        return BaseElement(driver=self.driver, locator=self.locators.CLASSROOM_HEADER)
+        return BaseElement(driver=self.driver, locator=self.locators.CLASSROOM_PAGE_HEADER)
 
     @property
     def continue_button(self):
@@ -68,6 +72,10 @@ class ClassroomPage(BasePage):
         return BaseElement(driver=self.driver, locator=self.locators.CONTINUE_BUTTON_2)
 
     @property
+    def course_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.COURSE_BUTTON)
+
+    @property
     def course_details_button(self):
         return BaseElement(driver=self.driver, locator=self.locators.COURSE_DETAILS_BUTTON)
 
@@ -76,8 +84,12 @@ class ClassroomPage(BasePage):
         return BaseElement(driver=self.driver, locator=self.locators.CREATE_BUTTON)
 
     @property
-    def create_course_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.CREATE_COURSE_BUTTON)
+    def create_class_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.CREATE_CLASS_BUTTON)
+
+    @property
+    def create_join_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.CREATE_JOIN_BUTTON)
 
     @property
     def dialog_archive_button(self):
@@ -88,16 +100,20 @@ class ClassroomPage(BasePage):
         return BaseElement(driver=self.driver, locator=self.locators.DIALOG_CONTINUE_BUTTON)
 
     @property
+    def dialog_header(self):
+        return BaseElement(driver=self.driver, locator=self.locators.DIALOG_HEADER)
+
+    @property
     def dialog_window(self):
         return BaseElement(driver=self.driver, locator=self.locators.DIALOG_WINDOW)
 
     @property
-    def main_menu_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.MAIN_MENU_BUTTON)
+    def join_button(self):
+        return BaseElement(driver=self.driver, locator=self.locators.JOIN_BUTTON)
 
-    @property
-    def open_course(self):
-        return BaseElement(driver=self.driver, locator=self.locators.OPEN_COURSE)
+    # @property
+    # def open_course(self):
+    #     return BaseElement(driver=self.driver, locator=self.locators.OPEN_COURSE)
 
     @property
     def room_field(self):

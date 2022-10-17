@@ -16,12 +16,12 @@ now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
-    pytest.mark.order(17),
-    pytest.mark.change_topic,
-    pytest.mark.topic_flow,
+    pytest.mark.order(13),
+    pytest.mark.change_question,
+    pytest.mark.question_flow,
     pytest.mark.smoke,
     allure.parent_suite("All tests"),
-    allure.suite("Change Topic - " + dt_string),
+    allure.suite("Change Question - " + dt_string),
 ]
 
 
@@ -60,6 +60,7 @@ class TestClassPage:
         while course.got_it_button.visible:
             course.got_it_button.click()
 
+        course.wait_for_element_clickable(element=course.classwork_button)
         course.classwork_button.click()
 
     @allure.title("Classroom page is opened")
@@ -77,35 +78,69 @@ class TestClassPage:
                 assert False
 
 
-@allure.sub_suite("02. Change Topic")
+@allure.sub_suite("02. Classwork Page")
 class TestChangeTopic:
     @pytest.fixture(scope="class")
     def classwork(self, driver, test_config):
         classwork = ClassworkPage(driver, test_config)
 
-        classwork.topic_settings_button.click()
-        classwork.wait_for_element_clickable(element=classwork.rename_button)
-        classwork.rename_button.click()
-        classwork.alertdialog_input.input_text(TextData.CHANGED_TOPIC_NAME)
-        classwork.alertdialog_rename_button.click()
-
-        if not classwork.topic_name.text == \
-               TextData.CHANGED_TOPIC_NAME:
-            driver.refresh()
-
         yield classwork
 
-    @allure.title("Changed Topic Title")
-    def test_change_topic_name(self, classwork):
-        with allure.step("Check Changed Topic Title"):
+        classwork.question_settings_button.click()
+        classwork.wait_for_element_clickable(element=classwork.edit_button)
+
+        if not classwork.edit_button.visible:
+            driver.refresh()
+            classwork.assignment_settings_button.click()
+            classwork.wait_for_element_clickable(element=classwork.edit_button)
+
+        classwork.edit_button.click()
+
+    @allure.title("Classwork Page is Opened")
+    def test_classwork_page_opened(self, classwork):
+        with allure.step("Course Title is displayed"):
             try:
-                classwork.wait_for_element_clickable(
-                    element=classwork.topic_name
-                )
-                assert classwork.topic_name.text == \
-                       TextData.CHANGED_TOPIC_NAME
+                classwork.wait_for_element(element=classwork.course_title)
+                assert classwork.course_title.text == TextData.CLASS_NAME
             except:
                 allure.attach(classwork.driver.get_screenshot_as_png(),
-                              name="Changed Topic Title not displayed",
+                              name="Course Title not displayed",
+                              attachment_type=AttachmentType.PNG)
+                assert False
+
+
+@allure.sub_suite("03. Change Question")
+class TestQuestionPage:
+    @pytest.fixture(scope="class")
+    def question(self, driver, test_config):
+        question = ClassworkPage(driver, test_config)
+        question.question_title.input_text(TextData.NEW_QUESTION)
+
+        attribute_value = question.post_button.get_attribute("tabindex")
+        if attribute_value == "0":
+            question.post_button.click()
+        else:
+            while attribute_value != "0":
+                print(attribute_value)
+                attribute_value = \
+                    question.post_button.get_attribute("tabindex")
+                print(attribute_value)
+                if attribute_value == "0":
+                    question.post_button.click()
+
+        if not question.changed_other_name.text == TextData.NEW_QUESTION:
+            driver.refresh()
+
+        yield question
+
+    @allure.title("Change Question")
+    def test_change_question_topic(self, question):
+        with allure.step("Changed Question is displayed"):
+            try:
+                assert question.changed_other_name.text == \
+                       TextData.NEW_QUESTION
+            except:
+                allure.attach(question.driver.get_screenshot_as_png(),
+                              name="Changed Question not displayed",
                               attachment_type=AttachmentType.PNG)
                 assert False

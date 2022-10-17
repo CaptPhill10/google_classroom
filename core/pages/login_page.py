@@ -1,5 +1,3 @@
-import time
-
 import allure
 
 from core.base_element import BaseElement
@@ -20,31 +18,106 @@ class LoginPage(BasePage):
         pass
 
     def do_login(self, email, password):
-        # self.language_selector.click()
-        # self.select_english.click()
-        # time.sleep(1)
         self.email_field.input_text(email)
         self.next_button.click()
-        time.sleep(1)
+        self.wait_for_element_clickable(element=self.password_field)
         self.password_field.input_text(password)
         self.next_button.click()
 
     @property
-    def language_selector(self):
-        return BaseElement(driver=self.driver, locator=self.locators.LANGUAGE_SELECTOR)
-
-    @property
-    def select_english(self):
-        return BaseElement(driver=self.driver, locator=self.locators.ENGLISH_LANGUAGE)
+    def create_account_button(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.CREATE_ACCOUNT_BUTTON
+        )
 
     @property
     def email_field(self):
-        return BaseElement(driver=self.driver, locator=self.locators.EMAIL_FIELD)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.EMAIL_FIELD
+        )
 
     @property
-    def password_field(self):
-        return BaseElement(driver=self.driver, locator=self.locators.PASSWORD_FIELD)
+    def email_link(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.EMAIL_LINK
+        )
+
+    @property
+    def empty_login_field(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.EMPTY_LOGIN_FIELD
+        )
+
+    @property
+    def empty_password_field(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.EMPTY_PASSWORD_FIELD
+        )
+
+    @property
+    def forgot_email_button(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.FORGOT_EMAIL_BUTTON
+        )
+
+    @property
+    def forgot_password_button(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.FORGOT_PASSWORD_BUTTON
+        )
+
+    @property
+    def language_selector(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.LANGUAGE_SELECTOR
+        )
+
+    @property
+    def login_error_message(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.LOGIN_ERROR_MESSAGE
+        )
 
     @property
     def next_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.NEXT_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.NEXT_BUTTON
+        )
+
+    @property
+    def password_field(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.PASSWORD_FIELD
+        )
+
+    @property
+    def password_error_message(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.PASSWORD_ERROR_MESSAGE
+        )
+
+    @property
+    def select_english(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.ENGLISH_LANGUAGE
+        )
+
+    @property
+    def show_password_checkbox(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.SHOW_PASSWORD_CHECKBOX
+        )

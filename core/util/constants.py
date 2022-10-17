@@ -1,22 +1,26 @@
 class Constants:
 
     # Valid login data
-    VALID_LOGIN = "captphill10@gmail.com"
-    VALID_PASSWORD = "TequilaXO18+"
-
-    # VALID_LOGIN = "chrislusttrue@gmail.com"
+    # VALID_LOGIN = "casperschmei@gmail.com"
     # VALID_PASSWORD = "5050038Nik"
 
-    # Invalid login data
-    INVALID_LOGIN = ""
-    INVALID_PASSWORD = "Mr1234567?"
+    VALID_LOGIN = "cooperal611@gmail.com"
+    VALID_PASSWORD = "5050038Nik"
 
-    CLASS_NAME = "Math online class"
+    # STUDENT_LOGIN = "casperschmei@gmail.com"
+    # STUDENT_PASSWORD = "5050038Nik"
 
-    SECTION = ""
+    # STUDENT_LOGIN = "cooperal611@gmail.com"
+    # STUDENT_PASSWORD = "5050038Nik"
+    #
+    # VALID_LOGIN = "kinokiller3@gmail.com"
+    # VALID_PASSWORD = "5050038Nik"
 
-    SUBJECT = "Math"
+    STUDENT_LOGIN = "kinokiller3@gmail.com"
+    STUDENT_PASSWORD = "5050038Nik"
 
-    ROOM = "1"
+    # VALID_LOGIN = "chrislusttrue@gmail.com"
+    # VALID_PASSWORD = "6225267Nik"
 
-    TOPIC_NAME = "Multiplication table"
+    INVALID_LOGIN = "chriscooper@yandex.com"
+    INVALID_PASSWORD = "Am987654&"

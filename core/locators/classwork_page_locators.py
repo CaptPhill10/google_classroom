@@ -1,137 +1,223 @@
+from core.locators.base_locators import BaseLocators
 from selenium.webdriver.common.by import By
 
 
-class ClassworkPageLocators:
+class ClassworkPageLocators(BaseLocators):
     def __init__(self, test_config):
-        # super().__init__(test_config)
-        #
-        # self.test_config = test_config
+        super().__init__(test_config)
 
-        self.ADD_ANSWER_FIELD = (By.XPATH, '//div[@class="XBufad "]//input')
-
-        self.ADD_ANSWER_OPTION = (By.XPATH, '//div[@class="uEtsdd xkhr8"]')
+        self.test_config = test_config
 
         self.ADD_BUTTON = (
             By.XPATH,
-            '//*[@id="yDmH0d"]//div[3]/div//span[text()="Add"]'
+            '//div[@role="alertdialog"]/div[3]/div[2]'
         )
 
-        self.ADD_LINK_BUTTON = (By.XPATH, '//div[@class="OE6hId J9fJmf"]//span[text()="Add link"]')
+        self.ADD_LINK_BUTTON = (
+            By.XPATH,
+            '//div[@class="OE6hId J9fJmf"]//span[text()="Add link"]'
+        )
 
-        self.ADD_QUESTION_BUTTON = (By.XPATH, '//*[@id="SchemaEditor"]//div[@guidedhelpid="addQuestionGH"]')
+        self.ADD_VIDEO_BUTTON = (
+            By.XPATH,
+            '//*[@id="ibP6qb"]//footer//button'
+        )
 
-        self.ADD_VIDEO_BUTTON = (By.XPATH, '//*[@id="ibP6qb"]//footer//button')
+        self.ALERTDIALOG_HAND_IN_BUTTON = (
+            By.XPATH,
+            '//div[@role="alertdialog"]//div[contains (@class, "M9Bg4d")]'
+        )
 
-        self.ALERTDIALOG = (By.XPATH, '//div[@role="alertdialog"]')
+        self.ALERTDIALOG_INPUT = (
+            By.XPATH,
+            '//div[@role="alertdialog"]//input'
+        )
 
-        self.ALERTDIALOG_RENAME_BUTTON = (By.XPATH, '//div[@class="OE6hId J9fJmf"]//span[text()="Rename"]')
+        self.ALERTDIALOG_MARK_AS_DONE = (
+            By.XPATH,
+            '//div[@class="OE6hId J9fJmf"]//span[contains (text(), "Mark")]'
+        )
 
-        self.ALERTDIALOG_INPUT = (By.XPATH, '//div[@role="alertdialog"]//input')
+        self.ALERTDIALOG_RENAME_BUTTON = (
+            By.XPATH,
+            '//div[@role="alertdialog"]/div[3]/div[2]'
+        )
 
-        self.ANSWER_KEY = (By.XPATH, '//span[text()="Answer key"]')
+        self.ANSWER_INPUT = (
+            By.XPATH,
+            '//div[@class="Y6Mzcf Wic03c"]/textarea'
+        )
 
-        self.ANSWER_OPTION_1 = (By.XPATH, '//input[@class="whsOnd zHQkBf"]')
+        self.ASSIGNED_TASK = (By.XPATH, '//ol[@class="Xzp3fc"]/li[1]')
 
-        self.ANSWER_OPTION_2 = (By.XPATH, '(//input[@class="whsOnd zHQkBf"])[2]')
+        self.ASSIGNED_TASK_VIEW_BUTTON = (
+            By.XPATH,
+            '//ol[@class="Xzp3fc"]/li[1]'
+            '//a[@class="WpHeLc VfPpkd-mRLv6 VfPpkd-RLmnJb"]'
+        )
 
-        self.ASK_BUTTON = (By.XPATH, '//div[contains (@class, "qs9Ooe")]')
-
-        self.ASSIGN_BUTTON = (By.XPATH, '//span[text()="Assign"]')
+        self.ASSIGNED_WORK = (By.XPATH, '//div[@class="SFCE1b"]')
 
         self.ASSIGNMENT_BUTTON = (
-            By.XPATH, '//li//span[text()="Assignment"]'
+            By.XPATH,
+            '//li[@role="menuitem"]/span[text()="Assignment"]'
         )
 
-        self.ASSIGNMENT_EDIT_BUTTON = (By.XPATH, '//span[@aria-label="Edit"]')
+        self.ASSIGNMENT_NAME = (By.XPATH, '//textarea[@aria-label="Title"]')
 
-        self.ASSIGNMENT_INSTRUCTIONS = (By.XPATH, '//div[@id="T2Ybvb0"]')
+        self.ASSIGNMENT_TITLE = (By.XPATH, '//div[@class="e0prFf"]')
 
-        self.ASSIGNMENT_OPTIONS_BUTTON = (By.XPATH, '//div[@class=" lGm3nb"]//div[@aria-label="Assignment options"]')
+        self.ASSIGNMENT_SETTINGS_BUTTON = (
+            By.XPATH,
+            '//div[contains (@class, "u73Apc")]'
+            '//div[@aria-label="Assignment options"]'
+        )
 
-        self.ASSIGNMENT_TITLE = (By.XPATH, '//div[@class="kByKEb QRiHXd asQXV"]//span')
+        self.ATTACH_LINK_BUTTON = (
+            By.XPATH,
+            '//button[@aria-label="Add link"]'
+        )
 
-        self.ATTACH_LINK_BUTTON = (By.XPATH, '//button[@aria-label="Add link"]')
+        self.ATTACHMENT_LINK = (By.XPATH, '//div[@class="luto0c"]')
 
         self.ATTACH_VIDEO_BUTTON = (
             By.XPATH, '//button[@aria-label="Add YouTube video"]'
         )
 
-        self.CLOSE_BUTTON = (By.XPATH, '//span[text()="Close"]')
+        self.CHANGED_OTHER_NAME = (
+            By.XPATH,
+            '//ol[@class="Xzp3fc"]/li[1]//div[@class="lio3ib"]//span'
+        )
 
-        self.CONFIGURE_OPTION = (By.XPATH, '//div[@role="listbox" and contains(@class, "llrsB")]')
+        self.CHANGED_TOPIC_NAME = (
+            By.XPATH,
+            '//h2[contains(text(), "iPhone")]'
+        )
+
+        self.CLOSE_BUTTON = (
+            By.XPATH,
+            '//div[@role="button"]//span[text()="Close"]'
+        )
+
+        self.COURSE_TITLE = (By.XPATH, '//span[@id="UGb2Qe"]')
 
         self.CREATE_BUTTON = (
             By.XPATH,
-            '//div[@class="VfPpkd-Jh9lGc"]/..//span[text()="Create"]'
+            '//div[@class="VfPpkd-dgl2Hf-ppHlrf-sM5MNb"]'
+            '/..//span[text()="Create"]'
         )
 
         self.CREATE_QUIZ_BUTTON = (By.XPATH, '//div[@class="bxp7vf i3bmcb"]')
 
-        self.DESCRIPTION = (By.XPATH, '//div[@role="textbox"]')
-
-        self.DESCRIPTION_TEXT_INPUT = (By.XPATH, '//div[@id="T2Ybvb4"]')
-
-        self.DONE_BUTTON = (By.XPATH, '//span[text()="Done"]')
-
-        self.DUE_DATE = (By.XPATH, '//span[@class="BUagKb tLDEHd"]')
-
-        self.DUE_DATE_FIELD = (By.XPATH, '//div[@class="RPt7lf dKKcxf"]')
-
-        self.FIRST_QUESTION_TITLE = (By.XPATH, '//*[@id="T2Ybvb2"]')
-
-        self.FORMS_BUTTON = (By.XPATH, '//div[contains (@class, "qjTEB")]//div[text()="Forms"]')
-
-        self.GOT_IT_BUTTON = (
-            By.XPATH, '//button[@class="iph-button"]'
+        self.DATE_PICKER_BUTTON = (
+            By.XPATH,
+            '//div[@role="button" and @aria-label="Add due date"]'
         )
 
-        self.GUIDE = (By.XPATH, '//*[@id="inproduct-guide-modal"]')
+        self.DUE_DATE_BUTTON = (
+            By.XPATH,
+            '//div[@role="button" and @aria-label="No due date"]'
+        )
 
-        self.INPUT_ANSWER = (By.XPATH, '//*[@id="SchemaEditor"]//input[@data-initial-value="Correct Answer"]')
+        self.EDIT_BUTTON = (By.XPATH,
+                            '//span[@aria-label="Edit"]')
 
-        self.LISTBOX_OPTION = (By.XPATH, '//div[@role="option" and @class="MocG8c HZ3kWc LMgvRb"]')
+        self.FORMS_BUTTON = (
+            By.XPATH,
+            '//div[contains (@class, "qjTEB")]//div[text()="Forms"]')
 
-        self.MARK_AS_INCORRECT_CHECKBOX = (By.XPATH, '//div[@class="vpc2Xb"]')
+        self.GOOGLE_QUIZ = (
+            By.XPATH,
+            '//div[@class="r0VQac QRiHXd Aopndd "]'
+            '//a[contains (@aria-label, "Attachment")]'
+        )
 
-        self.MATERIAL_BUTTON = (By.XPATH, '//li//span[text()="Material"]')
+        self.HAND_IN_BUTTON = (
+            By.XPATH,
+            '//div[contains (@class, "YkTkoe")]'
+            '//div[contains (@class, "GAU0yc")]'
+        )
 
-        self.MATERIAL_NAME = (By.XPATH, '//ol[@class="Xzp3fc"]//span[text()="Multiplication table"]')
+        self.MARK_AS_DONE = (
+            By.XPATH,
+            '//aside//div[contains (@class, "Y5sE8d")]'
+        )
 
-        self.MATERIAL_TOPIC_FIELD = (By.XPATH, '//div[contains (@class, "TIKlJe")]')
+        self.MATERIAL_ATTACHMENT = (By.XPATH, '//div[@class="F1bQqd"]/a')
 
-        self.NEW_TOPIC = (By.XPATH, '//a[text()="iPhone 14 Pro Max"]')
+        self.MATERIAL_ATTACHMENT_LINK = (
+            By.XPATH,
+            '//div[@class="t2wIBc"]//a[contains (@aria-label, "Attachment")]'
+        )
 
-        self.NO_THANKS_BUTTON = (By.XPATH, '//button[text()="No, thanks"]')
+        self.MATERIAL_BUTTON = (
+            By.XPATH,
+            '//li[@role="menuitem"]/span[text()="Material"]'
+        )
 
-        self.OKAY_BUTTON = (By.XPATH, '//button[contains(text(), "Ok")]')
+        self.MATERIAL_PAGE_TITLE = (
+            By.XPATH,
+            '//div[@class="HvC6Tb"]//div[@class="e0prFf"]'
+        )
+
+        self.MATERIAL_SETTINGS_BUTTON = (
+            By.XPATH,
+            '//div[contains (@class, "u73Apc")]'
+            '//div[@aria-label="Material options"]'
+        )
+
+        self.MATERIAL_TITLE = (By.XPATH, '//textarea[@aria-label="Title"]')
+
+        self.NEXT_MONTH_BUTTON = (
+            By.XPATH,
+            '//button[@class="XaepId-SKd3Ne XaepId-jx5HS"'
+            ' and @title="Next month"]'
+        )
 
         self.OPEN_QUIZ = (By.XPATH, '//div[@class="F1bQqd"]/a')
 
-        self.PEOPLE_BUTTON = (By.XPATH, '(//div[@class="R2tE8e VHRSDf"]//a)[3]')
+        self.OTHER_NAME = (
+            By.XPATH,
+            '//ol[@class="Xzp3fc"]//span[@class="YVvGBb UzbjTd"]'
+        )
 
-        self.POPUP = (By.XPATH, '//div[@id="inproduct-guide-modal"]')
+        self.POST_BUTTON = (By.XPATH, '//div[@jsmodel="hGbFme"]/div[1]')
 
-        self.POST_BUTTON = (By.XPATH, '//div[contains (@class, "qs9Ooe")]')
+        self.QUESTION_BUTTON = (
+            By.XPATH,
+            '//li[@role="menuitem"]/span[text()="Question"]'
+        )
 
-        self.QUESTION_BUTTON = (By.XPATH, '//li//span[text()="Question"]')
+        self.QUESTION_SETTINGS_BUTTON = (
+            By.XPATH,
+            '//div[@class="yOdyF"]//div[@aria-label="Question options"]'
+        )
 
-        self.QUESTION_LISTBOX = (By.XPATH, '//div[@class="TWyWEc"]//div[@role="listbox"]')
+        self.QUESTION_STATUS = (
+            By.XPATH,
+            '//div[@class="Dy8Cxc QRiHXd"]'
+            '//span[@class="u7S8tc YVvGBb"]'
+            '//span[contains (text(), "in")]'
+        )
 
-        self.QUIZ_ASSIGNMENT = (By.XPATH, '//li//span[text()="Quiz assignment"]')
+        self.QUESTION_TITLE = (By.XPATH, '//textarea[@aria-label="Question"]')
 
-        # self.QUIZ_ASSIGNMENT_TITLE = (By.XPATH, '//span[text()="Multiplication table test"]')
+        self.QUIZ_BUTTON = (
+            By.XPATH,
+            '//li[@role="menuitem"]/span[text()="Quiz assignment"]'
+        )
 
-        self.QUIZ_ASSIGNMENT_TITLE = (By.XPATH, '//div[@class="kByKEb QRiHXd asQXV"]/span')
+        self.QUIZ_NAME = (By.XPATH, '//textarea[@aria-label="Title"]')
 
-        self.QUIZ_TITLE = (By.XPATH, '//*[@id="T2Ybvb0"]')
+        self.REMOVE_ATTACHMENT = (
+            By.XPATH,
+            '//div[@class="ZgfM9 QRiHXd"]//span[@class="XuQwKc"]'
+        )
 
-        self.REMOVE_ATTACHMENT = (By.XPATH, '//div[@class="ZgfM9 QRiHXd"]//span[@class="XuQwKc"]')
-
-        self.RENAME_BUTTON = (By.XPATH, '//div[text()="Rename"]')
-
-        self.REQUIRED_RADIO = (By.XPATH, '//div[@class="Vjsz1b"]//div[@class="E7QdY espmsb"]')
-
-        # self.NEXT_MONTH = (By.XPATH, '//button[@title = "Next month"]')
+        self.RENAME_BUTTON = (
+            By.XPATH,
+            '//div[@role="menu"]/div[1]/div[1]/span[1]'
+        )
 
         self.SAVE_BUTTON = (By.XPATH, '//div[contains (@class, "ZQXs7e")]')
 
@@ -139,38 +225,23 @@ class ClassworkPageLocators:
 
         self.SEARCH_VIDEO_FIELD = (By.XPATH, '//form//*[@id="search"]')
 
-        self.SECOND_ANSWER_KEY = (By.XPATH, '(//span[text()="Answer key"])[2]')
-
-        self.SECOND_CONFIGURE_OPTION = (By.XPATH, '(//span[text()="Multiple choice"])[2]')
-
-        self.SECOND_REQUIRED_RADIO = (By.XPATH, '(//div[@class="Vjsz1b"]//div[@class="E7QdY espmsb"])[2]')
-
-        self.SECOND_QUESTION_FIELD = (By.XPATH, '//*[@id="T2Ybvb4"]')
-
-        self.SECOND_QUESTION_TITLE = (By.XPATH, '//*[@id="T2Ybvb6"]')
-
-        self.SECOND_SELECT_OPTION = (By.XPATH, '(//div[@role="option"]//span[text()="Short answer"])[2]')
-
-        self.SELECT_DATE = (By.XPATH, '//tbody//td[@class="XaepId-gElRsf"]')
-
-        self.SELECT_OPTION = (By.XPATH, '//div[@role="option"]//span[text()="Short answer"]')
-
-        self.SELECT_TOPIC = (By.XPATH, '//li[@data-value="Multiplication table"]')
-
-        self.SEND_BUTTON = (By.XPATH, '//div[contains (@class, "CTi8 M9Bg4d")]')
-
-        self.TITLE_FIELD = (
-            By.XPATH, '//div[@class="Y6Mzcf Wic03c"]/textarea'
+        self.TOPIC_BUTTON = (
+            By.XPATH,
+            '//li[@role="menuitem"]/span[text()="Topic"]'
         )
 
-        self.TOPIC = (By.XPATH, '//div[@class="bFjUmb-Wvd9Cc O1l69"]')
-
-        self.TOPIC_BUTTON = (By.XPATH, '//li[@role="menuitem"]/span[text()="Topic"]')\
-
-        self.TOPIC_FIELD = (By.XPATH, '//div[@class="VfPpkd-TkwUic"]')
-
-        self.TOPIC_NAME = (By.XPATH, '//h2[contains(text(), "Multi")]')
+        self.TOPIC_NAME = (By.XPATH, '//h2[@class="PazDv"]')
 
         self.TOPIC_NAME_FIELD = (By.XPATH, '//input')
 
-        self.TOPIC_SETTINGS_BUTTON = (By.XPATH, '//h2[contains (text(), "Multi")]/..//div[@class="ClSQxf"]')
+        self.TOPIC_SETTINGS_BUTTON = (
+            By.XPATH,
+            '//div[@aria-label="Topic options"]'
+        )
+
+        self.UNSUBMIT_BUTTON = (By.XPATH, '//aside//span[text()="Unsubmit"]')
+
+        self.YOUR_WORK_LABEL = (
+            By.XPATH,
+            '//aside[@class="asCVDb BiaLW"]//span[@class="z3vRcc"]'
+        )

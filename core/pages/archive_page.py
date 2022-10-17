@@ -20,27 +20,42 @@ class ArchivePage(BasePage):
         pass
 
     def delete_course(self):
-        self.archive_page_button.click()
         self.course_details_button.click()
         self.delete_button.click()
         self.dialog_delete_button.click()
+        time.sleep(2)
 
     @property
     def classroom_menu(self):
-        return BaseElement(driver=self.driver, locator=self.locators.CLASSROOM_MENU)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.CLASSROOM_MENU
+        )
 
     @property
     def course_details_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.COURSE_DETAILS_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.COURSE_DETAILS_BUTTON
+        )
 
     @property
-    def archive_page_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.ARCHIVE_PAGE_BUTTON)
-
-    @property
-    def dialog_delete_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.DIALOG_DELETE_BUTTON)
+    def course_tile(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.COURSE_TILE
+        )
 
     @property
     def delete_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.DELETE_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.DELETE_BUTTON
+        )
+
+    @property
+    def dialog_delete_button(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.DIALOG_DELETE_BUTTON
+        )
