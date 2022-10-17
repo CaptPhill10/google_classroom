@@ -129,13 +129,6 @@ class ClassworkPage(BasePage):
         )
 
     @property
-    def assignment_title(self):
-        return BaseElement(
-            driver=self.driver,
-            locator=self.locators.ASSIGNMENT_TITLE
-        )
-
-    @property
     def assignment_settings_button(self):
         return BaseElement(
             driver=self.driver,
@@ -233,22 +226,6 @@ class ClassworkPage(BasePage):
             locator=self.locators.FORMS_BUTTON
         )
 
-    # # @property
-    # # def google_form_title(self):
-    # #     return BaseElement(driver=self.driver, locator=self.locators.GOOGLE_FORM_TITLE)
-    # #
-    # # @property
-    # # def google_form_question_add_option(self):
-    # #     return BaseElement(driver=self.driver, locator=self.locators.GOOGLE_FORM_QUESTION_ADD_OPTION)
-    # #
-    # # @property
-    # # def google_form_question_option(self):
-    # #     return BaseElement(driver=self.driver, locator=self.locators.GOOGLE_FORM_QUESTION_OPTION)
-    # #
-    # # @property
-    # # def google_form_question_title(self):
-    # #     return BaseElement(driver=self.driver, locator=self.locators.GOOGLE_FORM_QUESTION_TITLE)
-
     @property
     def google_quiz(self):
         return BaseElement(
@@ -263,14 +240,6 @@ class ClassworkPage(BasePage):
             locator=self.locators.HAND_IN_BUTTON
         )
 
-    # @property
-    # def input_grade_box(self):
-    #     return BaseElement(driver=self.driver, locator=self.locators.INPUT_GRADE_BOX)
-    #
-    # # @property
-    # # def input_question_answer(self):
-    # #     return BaseElement(driver=self.driver, locator=self.locators.INPUT_QUESTION_ANSWER)
-    #
     @property
     def mark_as_done(self):
         return BaseElement(
@@ -319,10 +288,6 @@ class ClassworkPage(BasePage):
             driver=self.driver,
             locator=self.locators.MATERIAL_SETTINGS_BUTTON
         )
-
-    # # @property
-    # # def material_topic_field(self):
-    # #     return BaseElement(driver=self.driver, locator=self.locators.MATERIAL_TOPIC_FIELD)
 
     @property
     def open_quiz(self):
@@ -422,13 +387,12 @@ class ClassworkPage(BasePage):
             locator=self.locators.SEARCH_VIDEO_FIELD
         )
 
-    # # @property
-    # # def second_answer_option(self):
-    # #     return BaseElement(driver=self.driver, locator=self.locators.SECOND_ANSWER_OPTION)
-
-    # # @property
-    # # def select_topic(self):
-    # #     return BaseElement(driver=self.driver, locator=self.locators.SELECT_TOPIC)
+    @property
+    def task_title(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.TASK_TITLE
+        )
 
     @property
     def topic_button(self):
@@ -436,10 +400,6 @@ class ClassworkPage(BasePage):
             driver=self.driver,
             locator=self.locators.TOPIC_BUTTON
         )
-
-    # @property
-    # def topic_field(self):
-    #     return BaseElement(driver=self.driver, locator=self.locators.TOPIC_FIELD)
 
     @property
     def topic_name(self):

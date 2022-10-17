@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 import allure
 import pytest
@@ -18,6 +18,7 @@ now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
+    pytest.mark.all,
     pytest.mark.order(12),
     pytest.mark.check_question_teacher,
     pytest.mark.question_flow,

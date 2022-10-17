@@ -20,6 +20,7 @@ now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
+    pytest.mark.all,
     pytest.mark.order(8),
     pytest.mark.check_quiz_teacher,
     pytest.mark.quiz_flow,
@@ -88,12 +89,10 @@ class TestTeacherCheck:
 
         yield classwork
 
-        # while not classwork.assigned_task.visible:
-        #     driver.refresh()
+        if not classwork.assigned_task.visible:
+            driver.refresh()
 
-        time.sleep(3)
-
-        # classwork.wait_for_element_clickable(element=classwork.assigned_task)
+        classwork.wait_for_element_clickable(element=classwork.assigned_task)
         classwork.assigned_task.click()
 
         classwork.wait_for_element_clickable(

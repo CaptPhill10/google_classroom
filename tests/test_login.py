@@ -1,4 +1,3 @@
-import time
 from datetime import datetime
 
 import allure
@@ -13,6 +12,7 @@ now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
+    pytest.mark.all,
     pytest.mark.order(1),
     pytest.mark.login,
     pytest.mark.smoke,
@@ -109,7 +109,6 @@ class TestPasswordView:
         yield password
 
         password.password_field.input_text(Constants.VALID_PASSWORD)
-
 
     @allure.title("Email is displayed")
     def test_email_displayed(self, password):

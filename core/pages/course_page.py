@@ -19,32 +19,49 @@ class CoursePage(BasePage):
 
     @property
     def alertdialog(self):
-        return BaseElement(driver=self.driver, locator=self.locators.ALERTDIALOG)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.ALERTDIALOG
+        )
 
     @property
     def announcement_popup(self):
-        return BaseElement(driver=self.driver, locator=self.locators.ANNOUNCEMENT_POPUP)
-
-    # @property
-    # def close_button(self):
-    #     return BaseElement(driver=self.driver, locator=self.locators.CLOSE_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.ANNOUNCEMENT_POPUP
+        )
 
     @property
     def next_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.NEXT_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.NEXT_BUTTON
+        )
 
     @property
     def save_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.SAVE_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.SAVE_BUTTON
+        )
 
     @property
     def select_stream_option(self):
-        return BaseElement(driver=self.driver, locator=self.locators.SELECT_STREAM_OPTION)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.SELECT_STREAM_OPTION
+        )
 
     @property
     def stream_options(self):
-        return BaseElement(driver=self.driver, locator=self.locators.STREAM_OPTIONS)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.STREAM_OPTIONS
+        )
 
     @property
     def stream_settings_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.STREAM_SETTINGS_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.STREAM_SETTINGS_BUTTON
+        )

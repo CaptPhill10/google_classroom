@@ -18,29 +18,50 @@ class GmailPage(BasePage):
         pass
 
     @property
-    def search_box(self):
-        return BaseElement(driver=self.driver, locator=self.locators.SEARCH_BOX)
-
-    @property
     def class_invitation_mail(self):
-        return BaseElement(driver=self.driver, locator=self.locators.CLASS_INVITATION_MAIL)
-
-    @property
-    def join_to_class(self):
-        return BaseElement(driver=self.driver, locator=self.locators.JOIN_TO_CLASS)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.CLASS_INVITATION_MAIL
+        )
 
     @property
     def delete_invitation_mail(self):
-        return BaseElement(driver=self.driver, locator=self.locators.DELETE_INVITATION_MAIL)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.DELETE_INVITATION_MAIL
+        )
+
+    @property
+    def join_to_class(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.JOIN_TO_CLASS
+        )
 
     @property
     def more_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.MORE_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.MORE_BUTTON
+        )
+
+    @property
+    def search_box(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.SEARCH_BOX
+        )
 
     @property
     def search_term(self):
-        return BaseElement(driver=self.driver, locator=self.locators.SEARCH_TERM)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.SEARCH_TERM
+        )
 
     @property
     def show_content_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.SHOW_CONTENT_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.SHOW_CONTENT_BUTTON
+        )

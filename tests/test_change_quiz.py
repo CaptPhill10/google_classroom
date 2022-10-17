@@ -18,6 +18,7 @@ now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
+    pytest.mark.all,
     pytest.mark.orger(9),
     pytest.mark.change_quiz,
     pytest.mark.quiz_flow,
@@ -93,7 +94,7 @@ class TestChangeQuiz:
 
         classwork.edit_button.click()
 
-        if not classwork.assignment_title.visible:
+        if not classwork.task_title.visible:
             classwork.edit_button.click()
 
     @allure.title("Classwork Page is Opened")

@@ -15,6 +15,7 @@ now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
+    pytest.mark.all,
     pytest.mark.order(19),
     pytest.mark.delete_course,
     pytest.mark.smoke,

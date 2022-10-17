@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 import allure
 import pytest
@@ -12,10 +12,11 @@ from core.pages.login_page import LoginPage
 from core.data.text_data import TextData
 from core.util.constants import Constants
 
-now = datetime.now() - timedelta(hours=4)
-dt_string = now.strftime("%d/%m/%Y %H:%M") + " ET"
+now = datetime.now()
+dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
+    pytest.mark.all,
     pytest.mark.order(16),
     pytest.mark.create_topic,
     pytest.mark.smoke,
@@ -74,13 +75,15 @@ class TestCreateCoursePage:
         classroom.create_class_button.click()
         if classroom.agree_checkbox.visible:
             classroom.agree_checkbox.click()
-            attribute_value = classroom.continue_button.get_attribute("tabindex")
+            attribute_value = \
+                classroom.continue_button.get_attribute("tabindex")
             if attribute_value == "0":
                 classroom.continue_button_2.click()
             else:
                 while attribute_value != "0":
                     print(attribute_value)
-                    attribute_value = classroom.continue_button.get_attribute("tabindex")
+                    attribute_value = \
+                        classroom.continue_button.get_attribute("tabindex")
                     print(attribute_value)
                     if attribute_value == "0":
                         classroom.continue_button_2.click()
@@ -95,7 +98,8 @@ class TestCreateCoursePage:
         else:
             while attribute_value != "0":
                 print(attribute_value)
-                attribute_value = classroom.create_button.get_attribute("tabindex")
+                attribute_value = \
+                    classroom.create_button.get_attribute("tabindex")
                 print(attribute_value)
                 if attribute_value == "0":
                     classroom.create_button.click()
@@ -110,7 +114,9 @@ class TestCreateCoursePage:
     @allure.title("Course created")
     def test_create_class(self, course):
         with allure.step("Check Course is created"):
-            course.wait_for_element_clickable(element=course.stream_settings_button)
+            course.wait_for_element_clickable(
+                element=course.stream_settings_button
+            )
             try:
                 assert course.stream_settings_button.visible
             except:
@@ -137,7 +143,9 @@ class TestClassworkPage:
     def test_create_topic(self, classwork):
         with allure.step("Check Topic Title"):
             try:
-                classwork.wait_for_element_clickable(element=classwork.topic_name)
+                classwork.wait_for_element_clickable(
+                    element=classwork.topic_name
+                )
                 assert classwork.topic_name.text == TextData.TOPIC_NAME
             except:
                 allure.attach(classwork.driver.get_screenshot_as_png(),

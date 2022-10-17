@@ -16,6 +16,7 @@ now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
+    pytest.mark.all,
     pytest.mark.order(13),
     pytest.mark.change_question,
     pytest.mark.question_flow,
@@ -92,9 +93,14 @@ class TestChangeTopic:
         if not classwork.edit_button.visible:
             driver.refresh()
             classwork.assignment_settings_button.click()
-            classwork.wait_for_element_clickable(element=classwork.edit_button)
+            classwork.wait_for_element_clickable(
+                element=classwork.edit_button
+            )
 
         classwork.edit_button.click()
+
+        if not classwork.task_title.visible:
+            classwork.edit_button.click()
 
     @allure.title("Classwork Page is Opened")
     def test_classwork_page_opened(self, classwork):

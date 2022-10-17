@@ -17,6 +17,7 @@ now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
+    pytest.mark.all,
     pytest.mark.order(11),
     pytest.mark.pass_question_st,
     pytest.mark.question_flow,
@@ -130,7 +131,9 @@ class TestQuestionPage:
     def test_student_pass_question(self, question):
         with allure.step("Pass Question by Student"):
             try:
-                question.wait_for_element_clickable(element=question.question_status)
+                question.wait_for_element_clickable(
+                    element=question.question_status
+                )
                 assert question.question_status.text == "Turned in"
             except:
                 allure.attach(question.driver.get_screenshot_as_png(),

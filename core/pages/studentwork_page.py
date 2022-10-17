@@ -54,7 +54,10 @@ class StudentworkPage(BasePage):
 
     @property
     def input_grade_box(self):
-        return BaseElement(driver=self.driver, locator=self.locators.INPUT_GRADE_BOX)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.INPUT_GRADE_BOX
+        )
 
     @property
     def post_comment(self):

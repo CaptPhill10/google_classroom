@@ -225,6 +225,8 @@ class ClassworkPageLocators(BaseLocators):
 
         self.SEARCH_VIDEO_FIELD = (By.XPATH, '//form//*[@id="search"]')
 
+        self.TASK_TITLE = (By.XPATH, '//div[@class="e0prFf"]')
+
         self.TOPIC_BUTTON = (
             By.XPATH,
             '//li[@role="menuitem"]/span[text()="Topic"]'

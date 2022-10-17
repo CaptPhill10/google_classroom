@@ -1,4 +1,3 @@
-import time
 from datetime import datetime
 
 import allure
@@ -18,6 +17,7 @@ now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
+    pytest.mark.all,
     pytest.mark.order(15),
     pytest.mark.pass_material_st,
     pytest.mark.material_flow,

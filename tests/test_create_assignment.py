@@ -18,6 +18,7 @@ now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
+    pytest.mark.all,
     pytest.mark.order(2),
     pytest.mark.assignment_flow,
     pytest.mark.create_assignment,

@@ -41,88 +41,140 @@ class ClassroomPage(BasePage):
 
     @property
     def agree_checkbox(self):
-        return BaseElement(driver=self.driver, locator=self.locators.AGREE_CHECKBOX)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.AGREE_CHECKBOX
+        )
 
     @property
     def archive_course_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.ARCHIVE_COURSE_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.ARCHIVE_COURSE_BUTTON
+        )
 
     @property
     def archive_page_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.ARCHIVE_PAGE_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.ARCHIVE_PAGE_BUTTON
+        )
 
     @property
     def class_name_field(self):
-        return BaseElement(driver=self.driver, locator=self.locators.CLASS_NAME_FIELD)
-
-    # # @property
-    # # def classes_button(self):
-    # #     return BaseElement(driver=self.driver, locator=self.locators.CLASSES_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.CLASS_NAME_FIELD
+        )
 
     @property
     def classroom_page_header(self):
-        return BaseElement(driver=self.driver, locator=self.locators.CLASSROOM_PAGE_HEADER)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.CLASSROOM_PAGE_HEADER
+        )
 
     @property
     def continue_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.CONTINUE_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.CONTINUE_BUTTON
+        )
 
     @property
     def continue_button_2(self):
-        return BaseElement(driver=self.driver, locator=self.locators.CONTINUE_BUTTON_2)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.CONTINUE_BUTTON_2
+        )
 
     @property
     def course_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.COURSE_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.COURSE_BUTTON
+        )
 
     @property
     def course_details_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.COURSE_DETAILS_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.COURSE_DETAILS_BUTTON
+        )
 
     @property
     def create_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.CREATE_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.CREATE_BUTTON
+        )
 
     @property
     def create_class_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.CREATE_CLASS_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.CREATE_CLASS_BUTTON
+        )
 
     @property
     def create_join_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.CREATE_JOIN_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.CREATE_JOIN_BUTTON
+        )
 
     @property
     def dialog_archive_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.DIALOG_ARCHIVE_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.DIALOG_ARCHIVE_BUTTON
+        )
 
     @property
     def dialog_continue_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.DIALOG_CONTINUE_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.DIALOG_CONTINUE_BUTTON
+        )
 
     @property
     def dialog_header(self):
-        return BaseElement(driver=self.driver, locator=self.locators.DIALOG_HEADER)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.DIALOG_HEADER
+        )
 
     @property
     def dialog_window(self):
-        return BaseElement(driver=self.driver, locator=self.locators.DIALOG_WINDOW)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.DIALOG_WINDOW
+        )
 
     @property
     def join_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.JOIN_BUTTON)
-
-    # @property
-    # def open_course(self):
-    #     return BaseElement(driver=self.driver, locator=self.locators.OPEN_COURSE)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.JOIN_BUTTON
+        )
 
     @property
     def room_field(self):
-        return BaseElement(driver=self.driver, locator=self.locators.ROOM_FIELD)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.ROOM_FIELD
+        )
 
     @property
     def section_field(self):
-        return BaseElement(driver=self.driver, locator=self.locators.SECTION_FIELD)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.SECTION_FIELD
+        )
 
     @property
     def subject_field(self):
-        return BaseElement(driver=self.driver, locator=self.locators.SUBJECT_FIELD)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.SUBJECT_FIELD
+        )

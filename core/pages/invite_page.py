@@ -18,21 +18,36 @@ class InvitePage(BasePage):
         pass
 
     @property
-    def dialog_student_email(self):
-        return BaseElement(driver=self.driver, locator=self.locators.DIALOG_STUDENT_EMAIL)
-
-    @property
     def dialog_invite_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.DIALOG_INVITE_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.DIALOG_INVITE_BUTTON
+        )
 
     @property
     def dialog_select_first_person(self):
-        return BaseElement(driver=self.driver, locator=self.locators.DIALOG_SELECT_FIRST_PERSON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.DIALOG_SELECT_FIRST_PERSON
+        )
+
+    @property
+    def dialog_student_email(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.DIALOG_STUDENT_EMAIL
+        )
 
     @property
     def invite_student_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.INVITE_STUDENT_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.INVITE_STUDENT_BUTTON
+        )
 
     @property
     def student_name(self):
-        return BaseElement(driver=self.driver, locator=self.locators.STUDENT_NAME)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.STUDENT_NAME
+        )

@@ -20,6 +20,7 @@ now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
+    pytest.mark.all,
     pytest.mark.order(6),
     pytest.mark.create_quiz,
     pytest.mark.quiz_flow,
@@ -82,13 +83,15 @@ class TestCreateCoursePage:
         classroom.create_class_button.click()
         if classroom.agree_checkbox.visible:
             classroom.agree_checkbox.click()
-            attribute_value = classroom.continue_button.get_attribute("tabindex")
+            attribute_value = \
+                classroom.continue_button.get_attribute("tabindex")
             if attribute_value == "0":
                 classroom.continue_button_2.click()
             else:
                 while attribute_value != "0":
                     print(attribute_value)
-                    attribute_value = classroom.continue_button.get_attribute("tabindex")
+                    attribute_value = \
+                        classroom.continue_button.get_attribute("tabindex")
                     print(attribute_value)
                     if attribute_value == "0":
                         classroom.continue_button_2.click()
@@ -103,7 +106,8 @@ class TestCreateCoursePage:
         else:
             while attribute_value != "0":
                 print(attribute_value)
-                attribute_value = classroom.create_button.get_attribute("tabindex")
+                attribute_value = \
+                    classroom.create_button.get_attribute("tabindex")
                 print(attribute_value)
                 if attribute_value == "0":
                     classroom.create_button.click()
@@ -310,13 +314,15 @@ class TestInvitePage:
         invite.invite_student_button.click()
         invite.dialog_student_email.input_text(Constants.STUDENT_LOGIN)
         invite.dialog_select_first_person.click()
-        attribute_value = invite.dialog_invite_button.get_attribute("tabindex")
+        attribute_value = \
+            invite.dialog_invite_button.get_attribute("tabindex")
         if attribute_value == "0":
             invite.dialog_invite_button.click()
         else:
             while attribute_value != "0":
                 print(attribute_value)
-                attribute_value = invite.dialog_invite_button.get_attribute("tabindex")
+                attribute_value = \
+                    invite.dialog_invite_button.get_attribute("tabindex")
                 print(attribute_value)
                 if attribute_value == "0":
                     invite.dialog_invite_button.click()

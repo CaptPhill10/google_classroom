@@ -55,32 +55,56 @@ class BasePage:
 
     @property
     def classes_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.CLASSES_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.CLASSES_BUTTON
+        )
 
     @property
     def classwork_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.CLASSWORK_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.CLASSWORK_BUTTON
+        )
 
     @property
     def got_it_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.GOT_IT_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.GOT_IT_BUTTON
+        )
 
     @property
     def guide_dialog(self):
-        return BaseElement(driver=self.driver, locator=self.locators.GUIDE_DIALOG)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.GUIDE_DIALOG
+        )
 
     @property
     def guide_dialog_exit_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.GUIDE_DIALOG_EXIT_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.GUIDE_DIALOG_EXIT_BUTTON
+        )
 
     @property
     def main_menu_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.MAIN_MENU_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.MAIN_MENU_BUTTON
+        )
 
     @property
     def next_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.NEXT_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.NEXT_BUTTON
+        )
 
     @property
     def people_button(self):
-        return BaseElement(driver=self.driver, locator=self.locators.PEOPLE_BUTTON)
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.PEOPLE_BUTTON
+        )

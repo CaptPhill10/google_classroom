@@ -1,4 +1,3 @@
-import time
 from datetime import datetime
 
 import allure
@@ -17,6 +16,7 @@ now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
+    pytest.mark.all,
     pytest.mark.order(16),
     pytest.mark.change_material,
     pytest.mark.material_flow,
@@ -90,9 +90,14 @@ class TestChangeTopic:
         if not classwork.edit_button.visible:
             driver.refresh()
             classwork.assignment_settings_button.click()
-            classwork.wait_for_element_clickable(element=classwork.edit_button)
+            classwork.wait_for_element_clickable(
+                element=classwork.edit_button
+            )
 
         classwork.edit_button.click()
+
+        if not classwork.task_title.visible:
+            classwork.edit_button.click()
 
         yield classwork
 
@@ -174,11 +179,9 @@ class TestClassworkPage:
     def classwork(self, driver, test_config):
         classwork = ClassworkPage(driver, test_config)
 
-        # if not classwork.changed_other_name.text == \
-        #        TextData.CHANGED_MATERIAL_TITLE:
-        #     driver.refresh()
-
-        time.sleep(3)
+        if not classwork.changed_other_name.text == \
+               TextData.CHANGED_MATERIAL_TITLE:
+            driver.refresh()
 
         yield classwork
 

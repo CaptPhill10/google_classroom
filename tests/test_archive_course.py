@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 import allure
 import pytest
@@ -10,10 +10,11 @@ from core.pages.login_page import LoginPage
 from core.util.constants import Constants
 
 
-now = datetime.now() - timedelta(hours=4)
-dt_string = now.strftime("%d/%m/%Y %H:%M") + " ET"
+now = datetime.now()
+dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
+    pytest.mark.all,
     pytest.mark.order(18),
     pytest.mark.archive_course,
     pytest.mark.smoke,
