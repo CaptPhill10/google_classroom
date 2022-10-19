@@ -4,7 +4,12 @@ from selenium.common.exceptions import (
     TimeoutException,
     StaleElementReferenceException,
     NoSuchElementException,
+    ElementClickInterceptedException,
+    ElementNotInteractableException,
 )
+
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -63,12 +68,16 @@ class BaseElement(object):
         if self.web_element is not None:
             try:
                 WebDriverWait(self.driver, wait_time).until(
-                    EC.text_to_be_present_in_element(locator=self.locator, text_=value)
+                    EC.text_to_be_present_in_element(
+                        locator=self.locator,
+                        text_=value
+                    )
                 )
                 return True
             except TimeoutException:
                 print(
-                    f"\nFailed: the text {value} isn't present in the element using the locator {self.locator}.\n",
+                    f"\nFailed: the text {value} isn't present in the element"
+                    f" using the locator {self.locator}.\n",
                     sys.exc_info()[:2],
                 )
                 return False
@@ -85,6 +94,31 @@ class BaseElement(object):
             web_element.send_keys(text)
         else:
             return None
+
+    def input_text_2(self, text):
+        try:
+            if self.web_element is not None:
+                web_element = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located(locator=self.locator)
+                )
+                web_element.send_keys(Keys.CONTROL + Keys.SHIFT + Keys.HOME)
+                web_element.send_keys(Keys.BACKSPACE)
+                print(text)
+                web_element.send_keys(text)
+            else:
+                return None
+        except ElementClickInterceptedException:
+                if self.dismiss_popup_button:
+                    self.input_text_2(text=text)
+                    return None
+                else:
+                    return None
+        except ElementNotInteractableException:
+                if self.dismiss_popup_button:
+                    self.input_text_2(text=text)
+                    return None
+                else:
+                    return None
 
     @property
     def get_attribute(self):
@@ -126,7 +160,8 @@ class BaseElement(object):
                 return True
             except TimeoutException:
                 print(
-                    f"Error: element with locator {self.locator} not clickable after 10 seconds: ",
+                    f"Error: element with locator {self.locator} "
+                    f"not clickable after 10 seconds: ",
                     sys.exc_info()[0],
                 )
                 return False
@@ -146,7 +181,8 @@ class BaseElement(object):
                 return True
             except TimeoutException:
                 print(
-                    f"Error: element with locator {self.locator} not visible after 10 seconds: ",
+                    f"Error: element with locator {self.locator} "
+                    f"not visible after 10 seconds: ",
                     sys.exc_info()[0],
                 )
                 return False
@@ -154,4 +190,25 @@ class BaseElement(object):
                 print(f"An Exception occurred: {e}")
                 return False
         else:
+            return False
+
+    @property
+    def dismiss_popup_button(self, wait_time=5):
+        DISMISS_POPUP_BUTTON = (
+            By.XPATH,
+            '//button[@data-iph-nextstep="__dismiss__"]')
+        try:
+            web_element = WebDriverWait(
+                self.driver,
+                wait_time
+            ).until(
+                EC.presence_of_element_located(
+                    locator=DISMISS_POPUP_BUTTON
+                )
+            )
+            web_element.click()
+            return True
+        except TimeoutException:
+            print(f"\nERROR: cannot find the popup using the "
+                  f"locator {DISMISS_POPUP_BUTTON}. ")
             return False

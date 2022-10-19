@@ -1,3 +1,5 @@
+import time
+
 import allure
 
 from core.base_element import BaseElement
@@ -17,21 +19,17 @@ class ClassworkPage(BasePage):
         self.locators = ClassworkPageLocators(test_config=self.test_config)
         self.classwork_step()
 
-    def get_last_date_of_month(self, year, month):
-        if month == 12:
-            last_date = datetime(year, month, 31)
-        else:
-            last_date = datetime(year, month + 1, 1) + timedelta(days=-1)
-
-        return last_date
+    # def get_last_date_of_month(self, year, month):
+    #     if month == 12:
+    #         last_date = datetime(year, month, 31)
+    #     else:
+    #         last_date = datetime(year, month + 1, 1) + timedelta(days=-1)
+    #
+    #     return last_date
 
     @allure.step("Classwork step")
     def classwork_step(self):
         pass
-
-    # # @property
-    # # def add_answer_option(self):
-    # #     return BaseElement(driver=self.driver, locator=self.locators.ADD_ANSWER_OPTION)
 
     @property
     def add_button(self):
@@ -39,10 +37,6 @@ class ClassworkPage(BasePage):
             driver=self.driver,
             locator=self.locators.ADD_BUTTON
         )
-
-    # @property
-    # def add_grade_button(self):
-    #     return BaseElement(driver=self.driver, locator=self.locators.ADD_GRADE_BUTTON)
 
     @property
     def add_link_button(self):
@@ -210,6 +204,13 @@ class ClassworkPage(BasePage):
         return BaseElement(
             driver=self.driver,
             locator=self.locators.DUE_DATE_BUTTON
+        )
+
+    @property
+    def due_date_field(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.DUE_DATE_FIELD
         )
 
     @property
@@ -437,22 +438,25 @@ class ClassworkPage(BasePage):
         )
 
     def step_date(self):
-        today = date.today()
-        lastdate = self.get_last_date_of_month(today.year, today.month)
-        forward_day = 7
-        if lastdate.day - today.day < forward_day:
-            delta_day = forward_day - lastdate.day + today.day
-            BaseElement(
-                driver=self.driver,
-                locator=self.locators.NEXT_MONTH_BUTTON).click()
-            day_locator = (
-                By.XPATH,
-                '//td[@role="gridcell" and text()="' + str(delta_day) + '"]')
-            BaseElement(driver=self.driver, locator=day_locator).click()
-        else:
-            day_locator = (
-                By.XPATH,
-                '//td[@role="gridcell" and text()="' +
-                str(today.day + forward_day) + '"]')
-            BaseElement(driver=self.driver, locator=day_locator).click()
+        sub_date = datetime.now() + timedelta(days=7)
+        time.sleep(1)
+        self.due_date_field.input_text_2(sub_date.strftime("%b %d, %Y"))
+        # today = date.today()
+        # lastdate = self.get_last_date_of_month(today.year, today.month)
+        # forward_day = 7
+        # if lastdate.day - today.day < forward_day:
+        #     delta_day = forward_day - lastdate.day + today.day
+        #     BaseElement(
+        #         driver=self.driver,
+        #         locator=self.locators.NEXT_MONTH_BUTTON).click()
+        #     day_locator = (
+        #         By.XPATH,
+        #         '//td[@role="gridcell" and text()="' + str(delta_day) + '"]')
+        #     BaseElement(driver=self.driver, locator=day_locator).click()
+        # else:
+        #     day_locator = (
+        #         By.XPATH,
+        #         '//td[@role="gridcell" and text()="' +
+        #         str(today.day + forward_day) + '"]')
+        #     BaseElement(driver=self.driver, locator=day_locator).click()
 

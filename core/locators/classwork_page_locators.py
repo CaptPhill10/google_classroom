@@ -119,6 +119,11 @@ class ClassworkPageLocators(BaseLocators):
             '//div[@role="button" and @aria-label="No due date"]'
         )
 
+        self.DUE_DATE_FIELD = (
+            By.XPATH,
+            "//input[@aria-label='Due date']"
+        )
+
         self.EDIT_BUTTON = (By.XPATH,
                             '//span[@aria-label="Edit"]')
 
