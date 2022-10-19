@@ -19,6 +19,7 @@ dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
     pytest.mark.all,
+    pytest.mark.xdist_group(name="Question"),
     pytest.mark.order(10),
     pytest.mark.create_question,
     pytest.mark.question_flow,

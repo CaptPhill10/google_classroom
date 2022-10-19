@@ -16,6 +16,8 @@ dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
     pytest.mark.all,
+    pytest.mark.xdist_group(name="Course"),
+    pytest.mark.xdist_group(name="Delete"),
     pytest.mark.order(19),
     pytest.mark.delete_course,
     pytest.mark.smoke,

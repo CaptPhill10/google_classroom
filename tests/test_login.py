@@ -13,6 +13,7 @@ dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
     pytest.mark.all,
+    pytest.mark.xdist_group(name="Login"),
     pytest.mark.order(1),
     pytest.mark.login,
     pytest.mark.smoke,

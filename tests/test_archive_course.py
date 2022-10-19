@@ -15,6 +15,7 @@ dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
     pytest.mark.all,
+    pytest.mark.xdist_group(name="Archive"),
     pytest.mark.order(18),
     pytest.mark.archive_course,
     pytest.mark.smoke,

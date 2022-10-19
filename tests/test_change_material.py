@@ -17,6 +17,7 @@ dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
     pytest.mark.all,
+    pytest.mark.xdist_group(name="Material"),
     pytest.mark.order(16),
     pytest.mark.change_material,
     pytest.mark.material_flow,
