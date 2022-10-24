@@ -23,7 +23,7 @@ class ArchivePage(BasePage):
         self.course_details_button.click()
         self.delete_button.click()
         self.dialog_delete_button.click()
-        time.sleep(2)
+        time.sleep(5)
 
     @property
     def classroom_menu(self):

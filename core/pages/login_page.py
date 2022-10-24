@@ -18,11 +18,22 @@ class LoginPage(BasePage):
         pass
 
     def do_login(self, email, password):
+        self.wait_for_element_clickable(
+            element=self.email_field,
+            wait_time=30
+        )
         self.email_field.input_text(email)
-        self.next_button.click()
-        self.wait_for_element_clickable(element=self.password_field)
+        if self.email_field.get_attribute("data-initial-value") is None:
+            self.email_field.input_text(email)
+        self.login_next_button.click()
+        self.wait_for_element_clickable(
+            element=self.password_field,
+            wait_time=30
+        )
         self.password_field.input_text(password)
-        self.next_button.click()
+        if self.password_field.get_attribute("data-initial-value") is None:
+            self.password_field.input_text(password)
+        self.login_next_button.click()
 
     @property
     def create_account_button(self):
@@ -88,10 +99,10 @@ class LoginPage(BasePage):
         )
 
     @property
-    def next_button(self):
+    def login_next_button(self):
         return BaseElement(
             driver=self.driver,
-            locator=self.locators.NEXT_BUTTON
+            locator=self.locators.LOGIN_NEXT_BUTTON
         )
 
     @property

@@ -17,6 +17,80 @@ class InvitePage(BasePage):
     def invite_step(self):
         pass
 
+    def invite_people(self, teacher_login, student_login):
+        self.wait_for_element_clickable(
+            element=self.people_button,
+            wait_time=30
+        )
+        self.people_button.click()
+        if not self.invite_teacher_button.visible:
+            self.driver.refresh()
+            self.wait_for_element_clickable(
+                element=self.people_button,
+                wait_time=30
+            )
+            self.people_button.click()
+
+        self.invite_teacher_button.click()
+        self.wait_for_element_clickable(
+            element=self.dialog_people_email,
+            wait_time=30
+        )
+        self.dialog_people_email.input_text(teacher_login)
+
+        self.wait_for_element_clickable(
+            element=self.dialog_select_first_person,
+            wait_time=30
+        )
+        self.dialog_select_first_person.click()
+        attribute_value = \
+            self.dialog_invite_button.get_attribute("tabindex")
+        if attribute_value == "0":
+            self.dialog_invite_button.click()
+        else:
+            while attribute_value != "0":
+                print(attribute_value)
+                attribute_value = \
+                    self.dialog_invite_button.get_attribute("tabindex")
+                print(attribute_value)
+                if attribute_value == "0":
+                    self.dialog_invite_button.click()
+
+        self.wait_for_element(element=self.teacher_invited)
+
+        self.invite_student_button.click()
+        self.wait_for_element_clickable(
+            element=self.dialog_people_email,
+            wait_time=30
+        )
+        self.dialog_people_email.input_text(
+            student_login
+        )
+        self.wait_for_element_clickable(
+            element=self.dialog_select_first_person,
+            wait_time=30
+        )
+        self.dialog_select_first_person.click()
+        attribute_value = \
+            self.dialog_invite_button.get_attribute("tabindex")
+        if attribute_value == "0":
+            self.dialog_invite_button.click()
+        else:
+            while attribute_value != "0":
+                print(attribute_value)
+                attribute_value = \
+                    self.dialog_invite_button.get_attribute("tabindex")
+                print(attribute_value)
+                if attribute_value == "0":
+                    self.dialog_invite_button.click()
+
+    @property
+    def dialog_people_email(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.DIALOG_PEOPLE_EMAIL
+        )
+
     @property
     def dialog_invite_button(self):
         return BaseElement(
@@ -32,13 +106,6 @@ class InvitePage(BasePage):
         )
 
     @property
-    def dialog_student_email(self):
-        return BaseElement(
-            driver=self.driver,
-            locator=self.locators.DIALOG_STUDENT_EMAIL
-        )
-
-    @property
     def invite_student_button(self):
         return BaseElement(
             driver=self.driver,
@@ -46,8 +113,29 @@ class InvitePage(BasePage):
         )
 
     @property
+    def invite_teacher_button(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.INVITE_TEACHER_BUTTON
+        )
+
+    @property
     def student_name(self):
         return BaseElement(
             driver=self.driver,
             locator=self.locators.STUDENT_NAME
+        )
+
+    @property
+    def teacher_invited(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.TEACHER_INVITED
+        )
+
+    @property
+    def teacher_name(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.TEACHER_NAME
         )

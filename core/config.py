@@ -13,36 +13,36 @@ class TestConfig(object):
     def set_test_scope(self):
         if "create_course" in self.test_file:
             self.test_scope = "create_course"
-        elif "login_page" in self.test_file:
-            self.test_scope = "login_page"
+        elif "login" in self.test_file:
+            self.test_scope = "login"
         elif "create_assignment" in self.test_file:
             self.test_scope = "create_assignment"
-        elif "pass_assignment_st" in self.test_file:
-            self.test_scope = "pass_assignment_st"
-        elif "check_assignment_teacher" in self.test_file:
-            self.test_scope = "check_assignment_teacher"
+        elif "pass_assignment" in self.test_file:
+            self.test_scope = "pass_assignment"
+        elif "check_assignment" in self.test_file:
+            self.test_scope = "check_assignment"
         elif "change_assignment" in self.test_file:
             self.test_scope = "change_assignment"
         elif "create_material" in self.test_file:
             self.test_scope = "create_material"
-        elif "pass_material_st" in self.test_file:
-            self.test_scope = "pass_material_st"
+        elif "pass_material" in self.test_file:
+            self.test_scope = "pass_material"
         elif "change_material" in self.test_file:
             self.test_scope = "change_material"
         elif "create_question" in self.test_file:
             self.test_scope = "create_question"
-        elif "pass_question_st" in self.test_file:
-            self.test_scope = "pass_question_st"
-        elif "check_question_teacher" in self.test_file:
-            self.test_scope = "check_question_teacher"
+        elif "pass_question" in self.test_file:
+            self.test_scope = "pass_question"
+        elif "check_question" in self.test_file:
+            self.test_scope = "check_question"
         elif "change_question" in self.test_file:
             self.test_scope = "change_question"
         elif "create_quiz" in self.test_file:
             self.test_scope = "create_quiz"
-        elif "pass_quiz_st" in self.test_file:
-            self.test_scope = "pass_quiz_st"
-        elif "check_quiz_teacher" in self.test_file:
-            self.test_scope = "check_quiz_teacher"
+        elif "pass_quiz" in self.test_file:
+            self.test_scope = "pass_quiz"
+        elif "check_quiz" in self.test_file:
+            self.test_scope = "check_quiz"
         elif "change_quiz" in self.test_file:
             self.test_scope = "change_quiz"
         elif "create_topic" in self.test_file:

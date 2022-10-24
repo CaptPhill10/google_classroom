@@ -1,8 +1,12 @@
 from selenium.webdriver.common.by import By
 
+from core.locators.base_locators import BaseLocators
 
-class GoogleformPageLocators:
+
+class GoogleformPageLocators(BaseLocators):
     def __init__(self, test_config):
+        super().__init__(test_config)
+
         self.test_config = test_config
 
         self.ADD_ANSWER_FIELD = (By.XPATH, '//div[@class="XBufad "]//input')

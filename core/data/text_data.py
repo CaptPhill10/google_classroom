@@ -1,48 +1,77 @@
 class TextData:
+    def __init__(self, test_config):
+        self.test_config = test_config
 
-    CLASS_NAME = "Math online class"
+        self.CLASS_NAME = {
+            "archive_course": None,
+            "change_assignment": "Math online class - Assignment",
+            "change_material": "Math online class - Material",
+            "change_question": "Math online class - Question",
+            "change_quiz": "Math online class - Quiz",
+            "change_topic": "Math online class - Topic",
+            "check_assignment": "Math online class - Assignment",
+            "check_question": "Math online class - Question",
+            "check_quiz": "Math online class - Quiz",
+            "create_course": "Math online class",
+            "create_assignment": "Math online class - Assignment",
+            "create_material": "Math online class - Material",
+            "create_question": "Math online class - Question",
+            "create_quiz": "Math online class - Quiz",
+            "create_topic": "Math online class - Topic",
+            "delete_course": None,
+            "login": None,
+            "pass_assignment": "Math online class - Assignment",
+            "pass_material": "Math online class - Material",
+            "pass_question": "Math online class - Question",
+            "pass_quiz": "Math online class - Quiz",
+        }[self.test_config.test_scope]
 
-    SECTION = ""
+        self.SECTION = ""
 
-    SUBJECT = "Math"
+        self.SUBJECT = "Math"
 
-    ROOM = "1"
+        self.ROOM = "1"
 
-    ASSIGNMENT_NAME = "Multiplication table"
+        self.ASSIGNMENT_NAME = "Multiplication table"
 
-    ASSIGNMENT_ATTACHMENT = "https://www.youtube.com/watch?v=v1Ih3-mDPUk"
+        self.ASSIGNMENT_NAME_QUIZ = "Multiplication table Quiz"
 
-    ASSIGNMENT_ATTACHMENT_2 = \
-        'https://en.wikipedia.org/wiki/Trigonometric_functions'
+        self.ASSIGNMENT_ATTACHMENT = \
+            "https://www.youtube.com/watch?v=v1Ih3-mDPUk"
 
-    CHANGED_ASSIGNMENT_NAME = "Trigonometric functions"
+        self.ASSIGNMENT_ATTACHMENT_2 = \
+            'https://en.wikipedia.org/wiki/Trigonometric_functions'
 
-    CHANGED_MATERIAL_TITLE = "Trigonometric functions"
+        self.CHANGED_ASSIGNMENT_NAME = "Trigonometric functions"
 
-    CHANGED_QUIZ_TITLE = "Trigonometric quiz"
+        self.CHANGED_MATERIAL_TITLE = "Trigonometric functions"
 
-    CHANGED_TOPIC_NAME = "Trigonometry"
+        self.CHANGED_QUIZ_TITLE = "Trigonometric quiz"
 
-    MATERIAL_ATTACHMENT = 'https://www.mathsisfun.com/tables.html'
+        self.CHANGED_TOPIC_NAME = "Trigonometry"
 
-    MATERIAL_TITLE = "Multiplication table article"
+        self.MATERIAL_ATTACHMENT = 'https://www.mathsisfun.com/tables.html'
 
-    MATERIAL_VIDEO = "https://www.youtube.com/watch?v=WvoFgL4P_rw"
+        self.MATERIAL_TITLE = "Multiplication table article"
 
-    NEW_QUESTION = "Is the trigonometric identity " \
-                   "'sin^2(a) + cos^2(a) = 1' true?"
+        self.MATERIAL_VIDEO = "https://www.youtube.com/watch?v=WvoFgL4P_rw"
 
-    QUESTION = "How would you represent the multiplication" \
-               " '4 x 5' as addition? Results should be equal"
+        self.NEW_QUESTION = "Is the trigonometric identity " \
+                       "'sin^2(a) + cos^2(a) = 1' true?"
 
-    QUESTION_ANSWER = "5 + 5 + 5 + 5"
+        self.QUESTION = "How would you represent the multiplication" \
+                   " '4 x 5' as addition? Results should be equal"
 
-    QUIZ_TITLE = "Multiplication quiz"
+        self.QUESTION_ANSWER = "5 + 5 + 5 + 5"
 
-    SEARCH_KEYWORD = "Class invitation"
+        self.QUIZ_TITLE = "Multiplication quiz"
 
-    TOPIC_NAME = "Multiplication"
+        self.SEARCH_KEYWORD_STUDENT = "Class invitation"
 
-    GRADE = "100"
+        self.SEARCH_KEYWORD_TEACHER = "Invitation to co-teach"
 
-    GRADE_50 = "50"
+        self.TOPIC_NAME = "Multiplication"
+
+        self.GRADE = "100"
+
+        self.GRADE_50 = "50"

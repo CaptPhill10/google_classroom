@@ -1,5 +1,6 @@
-from core.locators.base_locators import BaseLocators
 from selenium.webdriver.common.by import By
+
+from core.locators.base_locators import BaseLocators
 
 
 class InvitePageLocators(BaseLocators):
@@ -13,7 +14,7 @@ class InvitePageLocators(BaseLocators):
             '//div[@role="dialog"]//div[@role="button" and @data-id="EBS5u"]'
         )
 
-        self.DIALOG_STUDENT_EMAIL = (
+        self.DIALOG_PEOPLE_EMAIL = (
             By.XPATH,
             '//div[@role="dialog"]//input[@role="combobox"]'
         )
@@ -28,7 +29,24 @@ class InvitePageLocators(BaseLocators):
             '//button[@aria-label="Invite students"]'
         )
 
+        self.INVITE_TEACHER_BUTTON = (
+            By.XPATH,
+            '//button[@data-tooltip-id="pK81de2"]'
+        )
+
         self.STUDENT_NAME = (
             By.XPATH,
             '(//span[@class="g2DEGd KwqU3e QRiHXd"]/span)[1]'
+        )
+
+        self.TEACHER_INVITED = (
+            By.XPATH,
+            '//table[@class="XNIQbd Oo2pXc"]'
+            '//span[@class="IMvYId pXwmie"]'
+        )
+
+        self.TEACHER_NAME = (
+            By.XPATH,
+            '(//table[@class="XNIQbd Oo2pXc"]'
+            '//span[@class="sCv5Q asQXV"])[2]'
         )

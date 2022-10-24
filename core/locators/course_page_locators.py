@@ -1,5 +1,6 @@
-from core.locators.base_locators import BaseLocators
 from selenium.webdriver.common.by import By
+
+from core.locators.base_locators import BaseLocators
 
 
 class CoursePageLocators(BaseLocators):
@@ -8,41 +9,24 @@ class CoursePageLocators(BaseLocators):
 
         self.test_config = test_config
 
-        self.ALERTDIALOG = (By.XPATH, '//div[@role="alertdialog"]')
-
-        self.ANNOUNCEMENT_POPUP = (
-            By.XPATH,
-            '//div[@id="inproduct-guide-modal"]'
-        )
-
-        self.CLOSE_BUTTON = (
-            By.XPATH,
-            '//div[@role="button"]//span[text()="Close"]'
-        )
-
-        self.GOT_IT = (
-            By.XPATH,
-            '//div[@id="inproduct-guide-modal"]//button'
-        )
-
-        self.NEXT_BUTTON = (
-            By.XPATH,
-            '//div[@id="inproduct-guide-modal"]//button'
-        )
-
         self.SAVE_BUTTON = (
             By.XPATH,
-            '//*[@id="yDmH0d"]/div[11]/div/div[2]/div[2]/div[3]//div/button'
+            '//div[@class="jzUkrb"]'
+        )
+
+        self.SAVED_MESSAGE = (
+            By.XPATH,
+            '//div[@class="RmhvCc Z3WPhc"]//span[contains (text(), "saved")]'
         )
 
         self.SELECT_STREAM_OPTION = (
             By.XPATH,
-            '//*[@id="ow168"]/div[2]/div[2]/div[4]/div/div/button/span'
+            '//div[contains (@class, "NFY6c")]//ul[@role="listbox"]/li[2]'
         )
 
         self.STREAM_OPTIONS = (
             By.XPATH,
-            '//p[text()="Stream"]/..//div[@role="listbox"]'
+            '//p[text()="Stream"]/..//div[@role="combobox"]'
         )
 
         self.STREAM_SETTINGS_BUTTON = (

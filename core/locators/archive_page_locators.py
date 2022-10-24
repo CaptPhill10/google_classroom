@@ -1,5 +1,6 @@
-from core.locators.base_locators import BaseLocators
 from selenium.webdriver.common.by import By
+
+from core.locators.base_locators import BaseLocators
 
 
 class ArchivePageLocators(BaseLocators):

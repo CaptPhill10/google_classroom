@@ -18,31 +18,17 @@ class CoursePage(BasePage):
         pass
 
     @property
-    def alertdialog(self):
-        return BaseElement(
-            driver=self.driver,
-            locator=self.locators.ALERTDIALOG
-        )
-
-    @property
-    def announcement_popup(self):
-        return BaseElement(
-            driver=self.driver,
-            locator=self.locators.ANNOUNCEMENT_POPUP
-        )
-
-    @property
-    def next_button(self):
-        return BaseElement(
-            driver=self.driver,
-            locator=self.locators.NEXT_BUTTON
-        )
-
-    @property
     def save_button(self):
         return BaseElement(
             driver=self.driver,
             locator=self.locators.SAVE_BUTTON
+        )
+
+    @property
+    def saved_message(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.SAVED_MESSAGE
         )
 
     @property

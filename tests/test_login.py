@@ -1,8 +1,7 @@
-from datetime import datetime
-
 import allure
 import pytest
 from allure_commons.types import AttachmentType
+from datetime import datetime
 
 from core.pages.account_page import AccountPage
 from core.pages.login_page import LoginPage
@@ -12,9 +11,8 @@ now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
-    pytest.mark.all,
-    pytest.mark.xdist_group(name="Login"),
     pytest.mark.order(1),
+    pytest.mark.xdist_group(name="Login"),
     pytest.mark.login,
     pytest.mark.smoke,
     allure.parent_suite("All tests"),
@@ -32,8 +30,8 @@ class TestLoginView:
 
         yield login
 
-        login.email_field.input_text(Constants.VALID_LOGIN)
-        login.next_button.click()
+        login.email_field.input_text(Constants.COURSE_LOGIN)
+        login.login_next_button.click()
 
     @allure.title("Create Account Button")
     def test_create_account_button(self, login):
@@ -71,10 +69,10 @@ class TestLoginView:
     @allure.title("Submit Empty Email")
     def test_empty_email_submit(self, login):
         with allure.step("Submit Empty Email"):
-            login.next_button.click()
+            login.login_next_button.click()
             login.wait_for_element(
                 element=login.login_error_message,
-                wait_time=10
+                wait_time=30
             )
             try:
                 assert login.login_error_message.text == \
@@ -88,7 +86,7 @@ class TestLoginView:
     @allure.title("Submit not Google Email")
     def test_not_google_email(self, login):
         login.email_field.input_text(Constants.INVALID_LOGIN)
-        login.next_button.click()
+        login.login_next_button.click()
         with allure.step("Submit not Google Email"):
             try:
                 assert login.login_error_message.text == \
@@ -109,13 +107,12 @@ class TestPasswordView:
 
         yield password
 
-        password.password_field.input_text(Constants.VALID_PASSWORD)
-
     @allure.title("Email is displayed")
     def test_email_displayed(self, password):
         with allure.step("Email Link is displayed"):
+            password.wait_for_element_clickable(element=password.email_link)
             try:
-                assert password.email_link.text == Constants.VALID_LOGIN
+                assert password.email_link.text == Constants.COURSE_LOGIN
             except:
                 allure.attach(password.driver.get_screenshot_as_png(),
                               name="Email Link not displayed",
@@ -152,7 +149,7 @@ class TestPasswordView:
     @allure.title("Submit Empty Password")
     def test_empty_password_submit(self, password):
         with allure.step("Empty Password Submit"):
-            password.next_button.click()
+            password.login_next_button.click()
             try:
                 assert password.password_error_message.text == \
                        "Enter a password"
@@ -166,7 +163,7 @@ class TestPasswordView:
     def test_incorrect_password_submit(self, password):
         with allure.step("Use Incorrect Password"):
             password.password_field.input_text(Constants.INVALID_PASSWORD)
-            password.next_button.click()
+            password.login_next_button.click()
             try:
                 assert password.password_error_message.text == \
                        "Wrong password. Try again or click Forgot " \
@@ -200,8 +197,8 @@ class TestPasswordView:
     @allure.title("Valid Password Submit")
     def test_submit_valid_password(self, driver, password, test_config):
         with allure.step("Valid Password Submit"):
-            password.password_field.input_text(Constants.VALID_PASSWORD)
-            password.next_button.click()
+            password.password_field.input_text(Constants.COURSE_PASSWORD)
+            password.login_next_button.click()
             account = AccountPage(driver, test_config)
             try:
                 assert account.google_apps_button.visible

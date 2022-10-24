@@ -1,5 +1,6 @@
-from core.locators.base_locators import BaseLocators
 from selenium.webdriver.common.by import By
+
+from core.locators.base_locators import BaseLocators
 
 
 class ClassworkPageLocators(BaseLocators):
@@ -65,8 +66,6 @@ class ClassworkPageLocators(BaseLocators):
 
         self.ASSIGNMENT_NAME = (By.XPATH, '//textarea[@aria-label="Title"]')
 
-        self.ASSIGNMENT_TITLE = (By.XPATH, '//div[@class="e0prFf"]')
-
         self.ASSIGNMENT_SETTINGS_BUTTON = (
             By.XPATH,
             '//div[contains (@class, "u73Apc")]'
@@ -89,14 +88,9 @@ class ClassworkPageLocators(BaseLocators):
             '//ol[@class="Xzp3fc"]/li[1]//div[@class="lio3ib"]//span'
         )
 
-        self.CHANGED_TOPIC_NAME = (
+        self.CHANGED_ASSIGNMENT_NAME = (
             By.XPATH,
-            '//h2[contains(text(), "iPhone")]'
-        )
-
-        self.CLOSE_BUTTON = (
-            By.XPATH,
-            '//div[@role="button"]//span[text()="Close"]'
+            '//div[@class="lio3ib"]//span[contains (text(), "Trigon")]'
         )
 
         self.COURSE_TITLE = (By.XPATH, '//span[@id="UGb2Qe"]')
@@ -239,7 +233,10 @@ class ClassworkPageLocators(BaseLocators):
 
         self.TOPIC_NAME = (By.XPATH, '//h2[@class="PazDv"]')
 
-        self.TOPIC_NAME_FIELD = (By.XPATH, '//input')
+        self.TOPIC_NAME_FIELD = (
+            By.XPATH,
+            '//div[@role="alertdialog"]//input'
+        )
 
         self.TOPIC_SETTINGS_BUTTON = (
             By.XPATH,

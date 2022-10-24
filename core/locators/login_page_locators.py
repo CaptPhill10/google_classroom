@@ -1,5 +1,6 @@
-from core.locators.base_locators import BaseLocators
 from selenium.webdriver.common.by import By
+
+from core.locators.base_locators import BaseLocators
 
 
 class LoginLocators(BaseLocators):
@@ -44,7 +45,7 @@ class LoginLocators(BaseLocators):
 
         self.LOGIN_ERROR_MESSAGE = (By.XPATH, '//div[@class="o6cuMc"]')
 
-        self.NEXT_BUTTON = (By.XPATH, '//span[text()="Next"]')
+        self.LOGIN_NEXT_BUTTON = (By.XPATH, '//span[text()="Next"]')
 
         self.PASSWORD_FIELD = (By.XPATH, '//div[@id="password"]//input')
 

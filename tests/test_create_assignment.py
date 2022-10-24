@@ -1,16 +1,13 @@
-from datetime import datetime
-
 import allure
 import pytest
 from allure_commons.types import AttachmentType
+from datetime import datetime
 
 from core.pages.account_page import AccountPage
 from core.pages.classroom_page import ClassroomPage
 from core.pages.classwork_page import ClassworkPage
-from core.pages.course_page import CoursePage
 from core.pages.invite_page import InvitePage
 from core.pages.login_page import LoginPage
-from core.data.text_data import TextData
 from core.util.constants import Constants
 
 
@@ -18,9 +15,8 @@ now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
-    pytest.mark.all,
+    pytest.mark.order(7),
     pytest.mark.xdist_group(name="Assignment"),
-    pytest.mark.order(2),
     pytest.mark.assignment_flow,
     pytest.mark.create_assignment,
     pytest.mark.smoke,
@@ -34,7 +30,10 @@ def login_page(driver, test_config):
 
     login = LoginPage(driver, test_config)
     login.open_main_page()
-    login.do_login(Constants.VALID_LOGIN, Constants.VALID_PASSWORD)
+    login.do_login(
+        Constants.ASSIGNMENT_LOGIN,
+        Constants.ASSIGNMENT_PASSWORD
+    )
 
     account = AccountPage(driver, test_config)
 
@@ -44,12 +43,12 @@ def login_page(driver, test_config):
 @allure.sub_suite("01. Classroom Page")
 class TestClassPage:
     @pytest.fixture(scope="class")
-    def classroom(self, driver, test_config, login_page):
+    def classroom(self, driver, test_config, login_page, text_data):
 
         account = AccountPage(driver, test_config)
 
         account.open_classroom()
-        classroom = ClassroomPage(driver, test_config)
+        classroom = ClassroomPage(driver, test_config, text_data)
 
         if classroom.dialog_window.visible:
             classroom.wait_for_element(classroom.dialog_continue_button)
@@ -72,64 +71,72 @@ class TestClassPage:
                 assert False
 
 
-@allure.sub_suite("02. Create Course")
-class TestCreateCoursePage:
+@allure.sub_suite("02. Create or open Course")
+class TestOpenCoursePage:
     @pytest.fixture(scope="class")
-    def course(self, driver, test_config):
-        classroom = ClassroomPage(driver, test_config)
+    def invite(self, driver, test_config, text_data):
+        classroom = ClassroomPage(driver, test_config, text_data)
 
-        classroom.create_join_button.click()
-        classroom.create_class_button.click()
-        if classroom.agree_checkbox.visible:
-            classroom.agree_checkbox.click()
-            attribute_value = \
-                classroom.continue_button.get_attribute("tabindex")
-            if attribute_value == "0":
-                classroom.continue_button_2.click()
+        classroom.create_course(text_data.CLASS_NAME)
+
+        while classroom.announcement_popup.visible:
+            classroom.got_it_button.click()
+            if not classroom.got_it_button.visible:
+                classroom.next_button.click()
             else:
-                while attribute_value != "0":
-                    print(attribute_value)
-                    attribute_value = \
-                        classroom.continue_button.get_attribute("tabindex")
-                    print(attribute_value)
-                    if attribute_value == "0":
-                        classroom.continue_button_2.click()
+                break
 
-        classroom.enter_class_name(TextData.CLASS_NAME)
-        classroom.enter_section(TextData.SECTION)
-        classroom.enter_subject(TextData.SUBJECT)
-        classroom.enter_room(TextData.ROOM)
-        attribute_value = classroom.create_button.get_attribute("tabindex")
-        if attribute_value == "0":
-            classroom.create_button.click()
-        else:
-            while attribute_value != "0":
-                print(attribute_value)
-                attribute_value = \
-                    classroom.create_button.get_attribute("tabindex")
-                print(attribute_value)
-                if attribute_value == "0":
-                    classroom.create_button.click()
+        if classroom.alertdialog.visible:
+            classroom.close_button.click()
 
-        course = CoursePage(driver, test_config)
+        invite = InvitePage(driver, test_config)
+        invite.invite_people(
+            teacher_login=Constants.ASSIGNMENT_TEACHER_LOGIN,
+            student_login=Constants.ASSIGNMENT_STUDENT_LOGIN
+        )
 
-        yield course
+        yield invite
 
-        course.wait_for_element_clickable(element=course.classwork_button)
-        course.classwork_button.click()
+        invite.wait_for_element_clickable(
+            element=invite.classwork_button,
+            wait_time=30
+        )
+        invite.classwork_button.click()
 
-    @allure.title("Create course")
-    def test_create_class(self, course):
-        with allure.step("Stream settings button. Course is created"):
+        if not invite.classwork_button.visible:
+            driver.refresh()
+            invite.wait_for_element_clickable(
+                element=invite.classwork_button,
+                wait_time=30
+            )
+            invite.classwork_button.click()
+
+    @allure.title("Invite Teacher")
+    def test_invite_teacher(self, invite):
+        with allure.step("Teacher invited"):
             try:
-                course.wait_for_element_clickable(
-                    element=course.stream_settings_button
+                invite.wait_for_element_clickable(
+                    element=invite.teacher_name,
+                    wait_time=30
                 )
-                assert course.stream_settings_button.visible
+                assert invite.teacher_name.text == \
+                       Constants.ASSIGNMENT_TEACHER_LOGIN
             except:
-                allure.attach(course.driver.get_screenshot_as_png(),
-                              name="Stream settings button not visible. "
-                                   "Course not created",
+                allure.attach(invite.driver.get_screenshot_as_png(),
+                              name="Teacher not invited",
+                              attachment_type=AttachmentType.PNG)
+                assert False
+
+    @allure.title("Invite Student")
+    def test_invite_student(self, invite):
+        with allure.step("Student invited"):
+            try:
+                invite.wait_for_element_clickable(element=invite.student_name)
+                assert invite.student_name.text == \
+                       Constants.ASSIGNMENT_STUDENT_LOGIN
+            except:
+                allure.attach(invite.driver.get_screenshot_as_png(),
+                              name="Student not invited",
                               attachment_type=AttachmentType.PNG)
                 assert False
 
@@ -139,20 +146,40 @@ class TestClassworkPage:
     @pytest.fixture(scope="class")
     def classwork(self, driver, test_config):
         classwork = ClassworkPage(driver, test_config)
-        while classwork.got_it_button.visible:
+
+        while classwork.announcement_popup.visible:
             classwork.got_it_button.click()
+            if not classwork.got_it_button.visible:
+                classwork.next_button.click()
+            else:
+                break
+
+        if classwork.alertdialog.visible:
+            classwork.close_button.click()
 
         yield classwork
 
+        classwork.wait_for_element_clickable(
+            element=classwork.create_button,
+            wait_time=30
+        )
         classwork.create_button.click()
+
+        classwork.wait_for_element_clickable(
+            element=classwork.assignment_button,
+            wait_time=30
+        )
         classwork.assignment_button.click()
 
+        if not classwork.assignment_name.visible:
+            classwork.assignment_button.click()
+
     @allure.title("Classwork Page is Opened")
-    def test_classwork_page_opened(self, classwork):
+    def test_classwork_page_opened(self, classwork, text_data):
         with allure.step("Course Title is displayed"):
             try:
                 classwork.wait_for_element(element=classwork.course_title)
-                assert classwork.course_title.text == TextData.CLASS_NAME
+                assert classwork.course_title.text == text_data.CLASS_NAME
             except:
                 allure.attach(classwork.driver.get_screenshot_as_png(),
                               name="Course Title not displayed",
@@ -163,25 +190,38 @@ class TestClassworkPage:
 @allure.sub_suite("04. Create Assignment")
 class TestAssignmentPage:
     @pytest.fixture(scope="class")
-    def classwork(self, driver, test_config):
+    def classwork(self, driver, test_config, text_data):
         assignment = ClassworkPage(driver, test_config)
 
-        assignment.assignment_name.input_text(TextData.ASSIGNMENT_NAME)
+        while assignment.announcement_popup.visible:
+            assignment.got_it_button.click()
+            if not assignment.got_it_button.visible:
+                assignment.next_button.click()
+            else:
+                break
 
-        if assignment.close_button.visible:
+        if assignment.alertdialog.visible:
             assignment.close_button.click()
 
-        while assignment.got_it_button.visible:
-            assignment.got_it_button.click()
+        assignment.assignment_name.input_text(text_data.ASSIGNMENT_NAME)
 
         assignment.attach_video_button.click()
         driver.switch_to.frame("newt-iframe")
+        assignment.wait_for_element_clickable(
+            element=assignment.search_video_field,
+            wait_time=30
+        )
         assignment.search_video_field.input_text(
-            TextData.ASSIGNMENT_ATTACHMENT
+            text_data.ASSIGNMENT_ATTACHMENT
         )
         assignment.search_button.click()
         assignment.add_video_button.click()
         driver.switch_to.parent_frame()
+
+        assignment.wait_for_element_clickable(
+            element=assignment.due_date_button,
+            wait_time=30
+        )
 
         assignment.due_date_button.click()
         assignment.date_picker_button.click()
@@ -201,58 +241,25 @@ class TestAssignmentPage:
 
         classwork = ClassworkPage(driver, test_config)
 
+        while classwork.announcement_popup.visible:
+            classwork.got_it_button.click()
+            if not classwork.got_it_button.visible:
+                classwork.next_button.click()
+            else:
+                break
+
+        if classwork.alertdialog.visible:
+            classwork.close_button.click()
+
         yield classwork
 
-        if not classwork.people_button.visible:
-            driver.refresh()
-        while classwork.got_it_button.visible:
-            classwork.got_it_button.click()
-        classwork.people_button.click()
-
     @allure.title("Assignment created")
-    def test_create_assignment(self, classwork):
+    def test_create_assignment(self, classwork, text_data):
         with allure.step("Assignment created"):
             try:
-                assert classwork.other_name.text == TextData.ASSIGNMENT_NAME
+                assert classwork.other_name.text == text_data.ASSIGNMENT_NAME
             except:
                 allure.attach(classwork.driver.get_screenshot_as_png(),
                               name="Assignment not created",
-                              attachment_type=AttachmentType.PNG)
-                assert False
-
-
-@allure.sub_suite("05. Invite")
-class TestInvitePage:
-    @pytest.fixture(scope="class")
-    def invite(self, driver, test_config):
-        invite = InvitePage(driver, test_config)
-
-        invite.invite_student_button.click()
-        invite.dialog_student_email.input_text(Constants.STUDENT_LOGIN)
-        invite.dialog_select_first_person.click()
-        attribute_value = \
-            invite.dialog_invite_button.get_attribute("tabindex")
-        if attribute_value == "0":
-            invite.dialog_invite_button.click()
-        else:
-            while attribute_value != "0":
-                print(attribute_value)
-                attribute_value = \
-                    invite.dialog_invite_button.get_attribute("tabindex")
-                print(attribute_value)
-                if attribute_value == "0":
-                    invite.dialog_invite_button.click()
-
-        yield invite
-
-    @allure.title("Invite Student")
-    def test_invite_student(self, invite):
-        with allure.step("Student invited"):
-            try:
-                invite.wait_for_element_clickable(element=invite.student_name)
-                assert invite.student_name.text == Constants.STUDENT_LOGIN
-            except:
-                allure.attach(invite.driver.get_screenshot_as_png(),
-                              name="Student not invited",
                               attachment_type=AttachmentType.PNG)
                 assert False

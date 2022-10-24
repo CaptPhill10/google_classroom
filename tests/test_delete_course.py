@@ -1,8 +1,7 @@
-from datetime import datetime
-
 import allure
 import pytest
 from allure_commons.types import AttachmentType
+from datetime import datetime
 
 from core.pages.account_page import AccountPage
 from core.pages.archive_page import ArchivePage
@@ -15,10 +14,9 @@ now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
-    pytest.mark.all,
+    pytest.mark.order(6),
     pytest.mark.xdist_group(name="Course"),
-    pytest.mark.xdist_group(name="Delete"),
-    pytest.mark.order(19),
+    pytest.mark.course_flow,
     pytest.mark.delete_course,
     pytest.mark.smoke,
     allure.parent_suite("All tests"),
@@ -31,7 +29,7 @@ def login_page(driver, test_config):
 
     login = LoginPage(driver, test_config)
     login.open_main_page()
-    login.do_login(Constants.VALID_LOGIN, Constants.VALID_PASSWORD)
+    login.do_login(Constants.COURSE_LOGIN, Constants.COURSE_PASSWORD)
 
     account = AccountPage(driver, test_config)
 
@@ -41,12 +39,12 @@ def login_page(driver, test_config):
 @allure.sub_suite("01. Classroom Page")
 class TestClassPage:
     @pytest.fixture(scope="class")
-    def classroom(self, driver, test_config, login_page):
+    def classroom(self, driver, test_config, login_page, text_data):
 
         account = AccountPage(driver, test_config)
 
         account.open_classroom()
-        classroom = ClassroomPage(driver, test_config)
+        classroom = ClassroomPage(driver, test_config, text_data)
 
         if classroom.dialog_window.visible:
             classroom.wait_for_element(classroom.dialog_continue_button)
@@ -72,7 +70,7 @@ class TestClassPage:
                 assert False
 
 
-@allure.sub_suite("06. Delete course")
+@allure.sub_suite("02. Delete course")
 class TestDeleteCourse:
     @pytest.fixture(scope="class")
     def archive(self, driver, test_config):
@@ -86,7 +84,7 @@ class TestDeleteCourse:
     def test_course_deleted(self, archive):
         with allure.step("Course is deleted"):
             try:
-                assert not archive.course_tile.visible
+                assert not archive.course_details_button.visible
             except:
                 allure.attach(archive.driver.get_screenshot_as_png(),
                               name="Course not deleted",

@@ -1,8 +1,7 @@
-from datetime import datetime
-
 import allure
 import pytest
 from allure_commons.types import AttachmentType
+from datetime import datetime
 
 from core.pages.account_page import AccountPage
 from core.pages.classroom_page import ClassroomPage
@@ -14,10 +13,10 @@ now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 pytestmark = [
-    pytest.mark.all,
-    pytest.mark.xdist_group(name="Archive"),
-    pytest.mark.order(18),
+    pytest.mark.order(5),
+    pytest.mark.xdist_group(name="Course"),
     pytest.mark.archive_course,
+    pytest.mark.course_flow,
     pytest.mark.smoke,
     allure.parent_suite("All tests"),
     allure.suite("Archive Course - " + dt_string),
@@ -29,7 +28,7 @@ def login_page(driver, test_config):
 
     login = LoginPage(driver, test_config)
     login.open_main_page()
-    login.do_login(Constants.VALID_LOGIN, Constants.VALID_PASSWORD)
+    login.do_login(Constants.COURSE_LOGIN, Constants.COURSE_PASSWORD)
 
     account = AccountPage(driver, test_config)
 
@@ -39,12 +38,12 @@ def login_page(driver, test_config):
 @allure.sub_suite("01. Classroom Page")
 class TestClassPage:
     @pytest.fixture(scope="class")
-    def classroom(self, driver, test_config, login_page):
+    def classroom(self, driver, test_config, login_page, text_data):
 
         account = AccountPage(driver, test_config)
 
         account.open_classroom()
-        classroom = ClassroomPage(driver, test_config)
+        classroom = ClassroomPage(driver, test_config, text_data)
 
         if classroom.dialog_window.visible:
             classroom.wait_for_element(classroom.dialog_continue_button)
@@ -70,8 +69,8 @@ class TestClassPage:
 @allure.sub_suite("02. Archive course")
 class TestArchiveCourse:
     @pytest.fixture(scope="class")
-    def classroom(self, driver, test_config, login_page):
-        classroom = ClassroomPage(driver, test_config)
+    def classroom(self, driver, test_config, login_page, text_data):
+        classroom = ClassroomPage(driver, test_config, text_data)
 
         yield classroom
 

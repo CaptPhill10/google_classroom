@@ -1,8 +1,13 @@
 from selenium.webdriver.common.by import By
 
+from core.locators.base_locators import BaseLocators
 
-class StudentworkPageLocators:
+
+class StudentworkPageLocators(BaseLocators):
     def __init__(self, test_config):
+        super().__init__(test_config)
+
+        self.test_config = test_config
 
         self.ADD_GRADE_BUTTON = (By.XPATH, '//div[@class="QRiHXd gRisWe"]')
 

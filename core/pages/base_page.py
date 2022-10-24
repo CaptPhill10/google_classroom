@@ -2,8 +2,8 @@ import sys
 import time
 
 from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 from core.base_element import BaseElement
 from core.locators.base_locators import BaseLocators
@@ -14,14 +14,14 @@ class BasePage:
         self.driver = driver
         self.test_config = test_config
         self.main_page = "https://accounts.google.com/"
-        self.locators = BaseLocators(config=self.test_config)
+        self.locators = BaseLocators(test_config=self.test_config)
 
     def open_main_page(self):
         self.driver.get(self.main_page)
 
-    def find_element(self, locator: tuple, time=10):
+    def find_element(self, locator: tuple, wait_time=10):
         try:
-            return WebDriverWait(self.driver, time).until(
+            return WebDriverWait(self.driver, wait_time).until(
             EC.presence_of_element_located(locator)
             )
 
@@ -45,13 +45,19 @@ class BasePage:
             time.sleep(1)
             i += 1
 
-    def elements_list(self, locator: str):
-        try:
-            elements = self.driver.find_elements(locator)
-            return elements
-        except TimeoutException:
-            print("Error: cannot find the elements: ", sys.exc_info()[0])
-            return None
+    @property
+    def alertdialog(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.ALERTDIALOG
+        )
+
+    @property
+    def announcement_popup(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.ANNOUNCEMENT_POPUP
+        )
 
     @property
     def classes_button(self):
@@ -65,6 +71,34 @@ class BasePage:
         return BaseElement(
             driver=self.driver,
             locator=self.locators.CLASSWORK_BUTTON
+        )
+
+    @property
+    def close_button(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.CLOSE_BUTTON
+        )
+
+    @property
+    def customize_ribbon_button(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.CUSTOMIZE_RIBBON_BUTTON
+        )
+
+    @property
+    def dialog_continue_button(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.DIALOG_CONTINUE_BUTTON
+        )
+
+    @property
+    def dialog_window(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.DIALOG_WINDOW
         )
 
     @property

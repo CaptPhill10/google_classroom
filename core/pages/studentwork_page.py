@@ -93,4 +93,3 @@ class StudentworkPage(BasePage):
             driver=self.driver,
             locator=self.locators.STUDENT_ANSWER
         )
-
