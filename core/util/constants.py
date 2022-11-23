@@ -14,9 +14,6 @@ class Constants:
     TEACHER_LOGIN = "kinokiller3@gmail.com"
     TEACHER_PASSWORD = "5050038Nik"
 
-    # ASSIGNMENT_LOGIN = "kinokiller622@gmail.com"
-    # ASSIGNMENT_PASSWORD = "5050038Nik"
-
     ASSIGNMENT_LOGIN = "dr2209012@gmail.com"
     ASSIGNMENT_PASSWORD = "Dr123456&"
 
@@ -50,8 +47,11 @@ class Constants:
     QUIZ_STUDENT_LOGIN = "hc060920@gmail.com"
     QUIZ_STUDENT_PASSWORD = "Har12345$"
 
-    QUIZ_TEACHER_LOGIN = "chrislusttrue@gmail.com"
-    QUIZ_TEACHER_PASSWORD = "6225267Nik"
+    # QUIZ_TEACHER_LOGIN = "chrislusttrue@gmail.com"
+    # QUIZ_TEACHER_PASSWORD = "6225267Nik"
+
+    QUIZ_TEACHER_LOGIN = "kinokiller622@gmail.com"
+    QUIZ_TEACHER_PASSWORD = "5050038Nik"
 
     INVALID_LOGIN = "chriscooper@yandex.com"
     INVALID_PASSWORD = "Am987654&"

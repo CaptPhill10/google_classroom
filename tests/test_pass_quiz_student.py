@@ -2,7 +2,6 @@ import allure
 import pytest
 from allure_commons.types import AttachmentType
 from datetime import datetime
-
 from core.pages.account_page import AccountPage
 from core.pages.classroom_page import ClassroomPage
 from core.pages.classwork_page import ClassworkPage
@@ -10,7 +9,6 @@ from core.pages.gmail_page import GmailPage
 from core.pages.googleform_page import GoogleformPage
 from core.pages.login_page import LoginPage
 from core.util.constants import Constants
-
 
 now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
@@ -254,17 +252,6 @@ class TestMarkDonePage:
 
         if quiz.alertdialog.visible:
             quiz.close_button.click()
-
-        quiz.wait_for_element_clickable(
-            element=quiz.mark_as_done,
-            wait_time=30
-        )
-        quiz.mark_as_done.click()
-        quiz.wait_for_element_clickable(
-            element=quiz.alertdialog_mark_as_done,
-            wait_time=30
-        )
-        quiz.alertdialog_mark_as_done.click()
 
         yield quiz
 

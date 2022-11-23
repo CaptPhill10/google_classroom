@@ -2,7 +2,6 @@ import allure
 import pytest
 from allure_commons.types import AttachmentType
 from datetime import datetime
-
 from core.pages.account_page import AccountPage
 from core.pages.classroom_page import ClassroomPage
 from core.pages.classwork_page import ClassworkPage
@@ -12,7 +11,6 @@ from core.pages.googleform_page import GoogleformPage
 from core.pages.login_page import LoginPage
 from core.pages.studentwork_page import StudentworkPage
 from core.util.constants import Constants
-
 
 now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
@@ -55,7 +53,7 @@ class TestTeacherGmail:
         gmail = GmailPage(driver, test_config)
 
         gmail.search_box.input_text(text_data.SEARCH_KEYWORD_TEACHER)
-        gmail.class_invitation_mail.click()
+        gmail.teacher_invitation_mail.click()
         gmail.wait_for_element(element=gmail.search_term)
         if gmail.show_content_button.visible:
             gmail.show_content()
@@ -272,7 +270,7 @@ class TestStudentPage:
             try:
                 studentwork.wait_for_element(element=studentwork.grade_points)
                 assert studentwork.grade_points.text == \
-                       "50 points out of possible 100"
+                       "50 points out of a possible 100"
             except:
                 allure.attach(studentwork.driver.get_screenshot_as_png(),
                               name="Student Grade Points not added",
@@ -284,7 +282,7 @@ class TestStudentPage:
         with allure.step("Student Task Status"):
             try:
                 studentwork.wait_for_element(element=studentwork.graded_label)
-                assert studentwork.graded_label.text == "Graded"
+                assert studentwork.graded_label.text == "Marked"
             except:
                 allure.attach(studentwork.driver.get_screenshot_as_png(),
                               name="Student Status not displayed",

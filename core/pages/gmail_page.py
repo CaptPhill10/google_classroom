@@ -1,7 +1,5 @@
 import allure
-
 from selenium.webdriver.common.by import By
-
 from core.base_element import BaseElement
 from core.locators.gmail_page_locators import GmailPageLocators
 from core.pages.base_page import BasePage
@@ -83,6 +81,13 @@ class GmailPage(BasePage):
             f'(//div[@aria-label="Show trimmed content"])[{len(elements_list)}]'
         )
         BaseElement(driver=self.driver, locator=show_content).click()
+
+    @property
+    def teacher_invitation_mail(self):
+        return BaseElement(
+            driver=self.driver,
+            locator=self.locators.TEACHER_INVITATION_MAIL
+        )
 
     def join_class(self):
         elements_list = self.driver.find_elements(

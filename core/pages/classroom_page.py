@@ -1,7 +1,5 @@
 import time
-
 import allure
-
 from core.base_element import BaseElement
 from core.locators.classroom_page_locators import ClassroomLocators
 from core.pages.base_page import BasePage

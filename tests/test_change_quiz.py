@@ -1,10 +1,8 @@
 import time
 import allure
 import pytest
-
 from allure_commons.types import AttachmentType
 from datetime import datetime
-
 from core.pages.account_page import AccountPage
 from core.pages.classroom_page import ClassroomPage
 from core.pages.classwork_page import ClassworkPage

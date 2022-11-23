@@ -1,10 +1,8 @@
 import sys
 import time
-
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-
 from core.base_element import BaseElement
 from core.locators.base_locators import BaseLocators
 

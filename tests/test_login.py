@@ -2,7 +2,6 @@ import allure
 import pytest
 from allure_commons.types import AttachmentType
 from datetime import datetime
-
 from core.pages.account_page import AccountPage
 from core.pages.login_page import LoginPage
 from core.util.constants import Constants

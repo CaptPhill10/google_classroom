@@ -2,7 +2,6 @@ import allure
 import pytest
 from allure_commons.types import AttachmentType
 from datetime import datetime
-
 from core.pages.account_page import AccountPage
 from core.pages.classroom_page import ClassroomPage
 from core.pages.classwork_page import ClassworkPage
@@ -11,7 +10,6 @@ from core.pages.gmail_page import GmailPage
 from core.pages.login_page import LoginPage
 from core.util.constants import Constants
 from core.pages.studentwork_page import StudentworkPage
-
 
 now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")
@@ -58,7 +56,7 @@ class TestTeacherGmail:
             wait_time=30
         )
         gmail.search_box.input_text(text_data.SEARCH_KEYWORD_TEACHER)
-        gmail.class_invitation_mail.click()
+        gmail.teacher_invitation_mail.click()
         gmail.wait_for_element(element=gmail.search_term)
         if gmail.show_content_button.visible:
             gmail.show_content()

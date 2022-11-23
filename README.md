@@ -16,6 +16,43 @@ Parallel tests execution implemented using pytest-xdist
 
 
 
+---
+How to use
+-----
+To clone and run this application, 
+you'll need Python 3.9 or 3.10 version and Git installed on your computer. 
+From your command line/Python IDE Terminal:
+
+Clone this repository
+```
+$ git clone https://github.com/CaptPhill10/google_classroom.git
+```
+
+Go into the repository
+```
+$ cd google_classroom
+```
+
+Install virtual environment pipenv. Use your user
+```
+$ pip install --user pipenv
+```
+
+Check that pipenv installed
+```
+$ pipenv --version
+```
+
+Activate virtual environment
+```
+$ pipenv shell
+```
+
+Install dependencies. Please, use specified versions
+```
+$ pip install -r requirements.txt
+```
+
 Run Instructions 
 ----- 
 The python framework can be run directly from the command line using pytest.

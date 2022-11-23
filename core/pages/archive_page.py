@@ -1,7 +1,5 @@
 import time
-
 import allure
-
 from core.base_element import BaseElement
 from core.locators.archive_page_locators import ArchivePageLocators
 from core.pages.base_page import BasePage

@@ -1,5 +1,4 @@
 import allure
-
 from core.base_element import BaseElement
 from core.locators.course_page_locators import CoursePageLocators
 from core.pages.base_page import BasePage

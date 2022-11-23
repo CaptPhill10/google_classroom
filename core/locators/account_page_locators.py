@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-
 from core.locators.base_locators import BaseLocators
 
 

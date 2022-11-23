@@ -3,7 +3,6 @@ import pytest
 import time
 from allure_commons.types import AttachmentType
 from datetime import datetime
-
 from core.pages.account_page import AccountPage
 from core.pages.classroom_page import ClassroomPage
 from core.pages.classwork_page import ClassworkPage
@@ -11,7 +10,6 @@ from core.pages.googleform_page import GoogleformPage
 from core.pages.invite_page import InvitePage
 from core.pages.login_page import LoginPage
 from core.util.constants import Constants
-
 
 now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M")

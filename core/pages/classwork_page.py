@@ -1,8 +1,6 @@
 import allure
 import time
-
 from datetime import datetime, timedelta
-
 from core.base_element import BaseElement
 from core.locators.classwork_page_locators import ClassworkPageLocators
 from core.pages.base_page import BasePage
